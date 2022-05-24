@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\VideoController;
 
 // use App\Http\Controllers\LockScreen;
 
@@ -85,6 +86,9 @@ Route::group(['middleware'=>'auth'],function()
 
     Route::post('admin/task/show/search', [TaskController::class, 'teamTask'])->name('admin/task/show/search');
     Route::post('admin/task/me/search', [TaskController::class, 'adminTask'])->name('admin/task/me/search');
+
+    // ----------------------------- video input -----------------------------//
+    Route::post('admin/video/save', [VideoController::class, 'saveVideo'])->name('admin/video/save');
 
     // ----------------------------- Profile -----------------------------//
     Route::get('admin/profile/', [UserManagementController::class, 'showProfile'])->name('admin/profile');

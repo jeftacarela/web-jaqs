@@ -30,6 +30,9 @@
                                     <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
                                         <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add a User</a>
                                     </button>
+                                    <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -588,6 +591,72 @@
         </div>
     </div>
     <!-- Add User Modal -->
+
+    <!-- Add Video Modal -->
+    <div id="add_video" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title header-title">Add Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin/video/save') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-8"> 
+                                <label>Topic</label>
+                                <select required class="form-control" name="project_id" id="project_id">
+                                    <option selected disabled value=""> -- Select Topic --</option>
+                                    @foreach ($project as $proj) 
+                                        <option value={{$proj->id}}>{{$proj->projectname}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3"> 
+                                <div class="form-group">
+                                    <label>Durations (hour:minute)</label>
+                                    <input required class="form-control @error('duration') is-invalid @enderror" type="time" id="duration" name="duration" value="00:00" placeholder="Enter Time Worked"
+                                        oninvalid="this.setCustomValidity('Please Enter valid Time <00:00>')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">https://www.youtube.com/watch?</div>
+                                    </div>
+                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
+                                    oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12"> 
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <br>
+                                    <textarea name="description" id="description" cols="100" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="submit-section">
+                                <button type="submit" class="btn btn-primary submit-btn">Add Video</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Video Modal -->
 
 
 @endsection

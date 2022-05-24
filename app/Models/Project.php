@@ -35,6 +35,11 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function video()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
