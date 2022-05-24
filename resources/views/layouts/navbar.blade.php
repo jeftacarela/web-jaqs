@@ -35,6 +35,22 @@
                         <i class="dripicons-to-do"></i><span class="badge badge-info badge-pill float-right"></span><span>Projects</span>
                     </a>
                 </li>
+                {{-- <li>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i><span>Projects<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                    <ul class="submenu">
+                        @php
+                            $project == App\Models\Project::latest()->get();
+                        @endphp
+                        @foreach ($project as $item)
+                            <li><a href="{{ route('admin/project/show') }}">{{ $item->projectname }}</a></li>
+                        @endforeach
+                    </ul>
+                </li> --}}
+                <li>
+                    <a href="{{ route('admin/video/show') }}" class="waves-effect">
+                        <i class="dripicons-monitor"></i><span class="badge badge-info badge-pill float-right"></span><span>Videos</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('user/management') }}" class="waves-effect">
                         <i class="dripicons-user-group"></i><span class="badge badge-info badge-pill float-right"></span><span>Users</span>

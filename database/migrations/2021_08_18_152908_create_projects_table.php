@@ -17,10 +17,10 @@ class CreateProjectsTable extends Migration
             $table->id();
             // $table->foreignId('information_form_id');
             $table->text('projectname');
-            $table->string('project_type');
-            $table->text('website_url')->unique();
-            $table->text('staging_url');
-            $table->string('status');
+            // $table->string('project_type');
+            // $table->text('website_url')->unique();
+            // $table->text('staging_url');
+            // $table->string('status');
             $table->string('duedate');
             $table->timestamps();
         });

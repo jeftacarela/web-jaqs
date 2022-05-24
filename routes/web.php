@@ -89,6 +89,9 @@ Route::group(['middleware'=>'auth'],function()
 
     // ----------------------------- video input -----------------------------//
     Route::post('admin/video/save', [VideoController::class, 'saveVideo'])->name('admin/video/save');
+    Route::get('admin/video/show', [VideoController::class, 'show'])->name('admin/video/show');
+    Route::post('admin/video/update', [VideoController::class, 'update'])->name('admin/video/update');
+    Route::get('admin/video/delete/{id}', [VideoController::class, 'delete']);
 
     // ----------------------------- Profile -----------------------------//
     Route::get('admin/profile/', [UserManagementController::class, 'showProfile'])->name('admin/profile');

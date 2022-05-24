@@ -11,10 +11,10 @@ class Project extends Model
 
     protected $fillable = [
         'projectname',
-        'project_type',
-        'website_url',
-        'staging_url',
-        'status',
+        // 'project_type',
+        // 'website_url',
+        // 'staging_url',
+        // 'status',
         'duedate',
     ];
 

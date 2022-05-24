@@ -24,14 +24,14 @@
                                     <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light mt-5 mr-2">
                                         <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_task" style="font-size: 14px">Create a Task</a>
                                     </button>
-                                    <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-1">
+                                    <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-2">
                                         <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_project" style="font-size: 14px">Add a Project</a>
+                                    </button>
+                                    <button type="submit" class="btn btn-sm btn-info waves-effect waves-light mt-5 mr-2">
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
                                         <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add a User</a>
-                                    </button>
-                                    <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
                                     </button>
                                 </div>
                             </div>
