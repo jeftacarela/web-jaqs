@@ -50,13 +50,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin/quiz/show') }}" class="waves-effect">
+                        <i class="dripicons-graduation"></i><span class="badge badge-info badge-pill float-right"></span><span>Quiz</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('user/management') }}" class="waves-effect">
                         <i class="dripicons-user-group"></i><span class="badge badge-info badge-pill float-right"></span><span>Users</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin/profile') }}" class="waves-effect">
-                        <i class="dripicons-user"></i><span class="badge badge-info badge-pill float-right"></span><span>My Profile</span>
+                        <i class="dripicons-user-id"></i><span class="badge badge-info badge-pill float-right"></span><span>My Profile</span>
                     </a>
                 </li>
                 {{-- <li>

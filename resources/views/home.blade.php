@@ -30,6 +30,9 @@
                                     <button type="submit" class="btn btn-sm btn-info waves-effect waves-light mt-5 mr-2">
                                         <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
                                     </button>
+                                    <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light mt-5 mr-2">
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_quiz" style="font-size: 14px">Add Quiz</a>
+                                    </button>
                                     <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
                                         <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add a User</a>
                                     </button>
@@ -657,6 +660,118 @@
         </div>
     </div>
     <!-- Add Video Modal -->
+
+    <!-- Add Quiz Modal -->
+    <div id="add_quiz" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title header-title">Add Quiz</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin/quiz/save') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-8"> 
+                                <label>Topic</label>
+                                <select required class="form-control" name="project_id" id="project_id">
+                                    <option selected disabled value=""> -- Select Topic --</option>
+                                    @foreach ($project as $proj) 
+                                        <option value={{$proj->id}}>{{$proj->projectname}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12"> 
+                                <div class="form-group">
+                                    <label for="question">Question</label>
+                                    <br>
+                                    <textarea name="question" id="question" cols="100" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group"></div>
+                                <label>Option</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">a</div>
+                                    </div>
+                                    <input required class="form-control @error('opt1') is-invalid @enderror" type="text" id="opt1" name="opt1" value="{{ old('opt1') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">b</div>
+                                    </div>
+                                    <input required class="form-control @error('opt2') is-invalid @enderror" type="text" id="opt2" name="opt2" value="{{ old('opt2') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">c</div>
+                                    </div>
+                                    <input required class="form-control @error('opt3') is-invalid @enderror" type="text" id="opt3" name="opt3" value="{{ old('opt3') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">d</div>
+                                    </div>
+                                    <input required class="form-control @error('opt4') is-invalid @enderror" type="text" id="opt4" name="opt4" value="{{ old('opt4') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">e</div>
+                                    </div>
+                                    <input required class="form-control @error('opt5') is-invalid @enderror" type="text" id="opt5" name="opt5" value="{{ old('opt5') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group"></div>
+                                <label>Key</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('oresult1') is-invalid @enderror" type="radio" id="result" name="result" value="1" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="2" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="3" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="4" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="5" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <div class="submit-section">
+                                <button type="submit" class="btn btn-primary submit-btn">Add Quiz</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Quiz Modal -->
 
 
 @endsection

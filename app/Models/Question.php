@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $guarded=['id'];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    // public function option()
+    // {
+    //     return $this->belongsTo(Option::class);
+    // }
 }

@@ -40,6 +40,16 @@ class Project extends Model
         return $this->hasMany(Video::class);
     }
 
+    public function question()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    // public function option()
+    // {
+    //     return $this->hasMany(Option::class);
+    // }
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);

@@ -17,9 +17,8 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->foreignId('project_id');
             $table->foreignId('question_id');
-            $table->char('number', 3);
-            $table->text('option');
-            $table->boolean('result')->default(false);
+            $table->json('option');
+            $table->string('result');
             $table->timestamps();
         });
     }

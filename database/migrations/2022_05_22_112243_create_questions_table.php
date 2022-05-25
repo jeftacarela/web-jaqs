@@ -17,6 +17,8 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->foreignId('project_id');
             $table->text('question')->nullable();
+            $table->json('option');
+            $table->string('result');
             $table->timestamps();
         });
     }

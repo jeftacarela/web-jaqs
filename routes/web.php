@@ -13,6 +13,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\VideoController;
 
@@ -92,6 +93,13 @@ Route::group(['middleware'=>'auth'],function()
     Route::get('admin/video/show', [VideoController::class, 'show'])->name('admin/video/show');
     Route::post('admin/video/update', [VideoController::class, 'update'])->name('admin/video/update');
     Route::get('admin/video/delete/{id}', [VideoController::class, 'delete']);
+
+    // ----------------------------- quiz input -----------------------------//
+    Route::post('admin/quiz/save', [QuizController::class, 'saveQuiz'])->name('admin/quiz/save');
+    Route::get('admin/quiz/show', [QuizController::class, 'show'])->name('admin/quiz/show');
+    Route::get('admin/quiz/detail/{id}', [QuizController::class, 'viewEdit']);
+    Route::post('admin/quiz/update', [QuizController::class, 'update'])->name('admin/quiz/update');
+    Route::get('admin/quiz/delete/{id}', [QuizController::class, 'delete']);
 
     // ----------------------------- Profile -----------------------------//
     Route::get('admin/profile/', [UserManagementController::class, 'showProfile'])->name('admin/profile');
