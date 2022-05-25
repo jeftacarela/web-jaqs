@@ -261,6 +261,23 @@
      });
     </script>
 
+    <!-- Update Video Modal js -->
+   <script>
+    $(document).on('click','.videoUpdate',function()
+     {
+         var _this = $(this).parents('tr');
+         $('#id').val(_this.find('.id').text());
+         $('#e_video').val(_this.find('.video').text());
+         $('#e_duration').val(_this.find('.duration').text());
+         $('#e_description').val(_this.find('.description').text());
+         // $('#e_image').val(_this.find('.image').text());
+
+         var project_id = (_this.find(".project_id").text());
+         var _option = '<option selected value="' + project_id+ '">' + _this.find('.projectname').text() + '</option>'
+         $( _option).appendTo("#e_project_id");
+     });
+    </script>
+
     <!-- Update Project Modal js -->
    <script>
     $(document).on('click','.projectUpdate',function()
