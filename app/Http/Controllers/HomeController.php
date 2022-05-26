@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
@@ -81,6 +82,8 @@ class HomeController extends Controller
             $jumlahMyTask = DB::table('tasks')->where('user_id', $id->id)->count();
 
             $projectuser = DB::table('project_user')->get();
+
+            LogActivity::addToLog('show home');
             return view('home', compact(
                 'user', 'task','id', 'videos', 'showVideos', 'questions',
                 'project', 'projectuser', 'jumlahUser', 'jumlahQuestion',

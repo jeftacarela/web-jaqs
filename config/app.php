@@ -234,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'PDF' => Barryvdh\DomPDF\Facade\PDF::class,
+        'LogActivity' => App\Helpers\LogActivity::class,
 
     ],
 

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UserLogTable extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'subject', 'url', 'method', 'ip', 'agent', 'user_id'
+    ];
 }

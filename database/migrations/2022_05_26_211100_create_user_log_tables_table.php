@@ -15,6 +15,12 @@ class CreateUserLogTablesTable extends Migration
     {
         Schema::create('user_log_tables', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('subject')->nullable();
+            $table->string('url');
+            $table->string('method');
+            $table->string('ip');
+            $table->string('agent')->nullable();
             $table->timestamps();
         });
     }
