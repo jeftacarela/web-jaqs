@@ -18,23 +18,23 @@
                                 <h3 class="greeting">Welcome {{ $id->name }}!</h3>
                             </div>
                         </div>
-                        <div class="row align-items-right">
+                        <div class="row align-items-center">
                             <div class="col">
                                 <div class="float-right d-none d-md-block">                    
-                                    <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light mt-5 mr-2">
+                                    {{-- <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light mt-5 mr-2">
                                         <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_task" style="font-size: 14px">Create a Task</a>
-                                    </button>
+                                    </button> --}}
                                     <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_project" style="font-size: 14px">Add a Project</a>
+                                        <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_project" style="font-size: 14px">Add New Topic</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-info waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add New Video</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_quiz" style="font-size: 14px">Add Quiz</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_quiz" style="font-size: 14px">Add New Quiz</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add a User</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add New User</a>
                                     </button>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
-                                        <h5 class="font-14">Total Active Project(s)</h5>
+                                        <h5 class="font-14">Total Topic(s)</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahProject }}</h4>
                                     </div>
                                 </div>
@@ -105,6 +105,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
+                                    <div class="col-lg-10">
+                                        <h5 class="font-14">Total Video(s)</h5>
+                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="col-sm-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center p-1">
                                     <div class="col-lg-12">
                                         <h5 class="font-14">Remaining Tasks for Team</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahTask }}</h4>
@@ -112,8 +124,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
+                    </div> --}}
+                    {{-- <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
@@ -124,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
@@ -222,10 +234,10 @@
                                         <div class="feed-item-list">
                                             {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
                                             <a href="{{ url('admin/task/show/') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
-                                            <p class="font-15 mt-0 mb-0">{{ $item->name }}
+                                            {{-- <p class="font-15 mt-0 mb-0">{{ $item->name }}
                                                 <b class="text-warning"> {{ $item->project->projectname }}</b>
                                                 <b class="text-primary"> {{ $item->user->name }}</b>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     </li>
                                     {{-- @endif --}}
@@ -305,7 +317,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title header-title">Create New Project</h5>
+                    <h5 class="modal-title header-title">Add New Topic</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -314,14 +326,27 @@
                     <form action="{{ route('admin/project/save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row"> 
-                            <div class="col-sm-8"> 
+                            <div class="col-sm-12"> 
                                 <div class="form-group">
-                                    <label for="projectname" class="col-form-label">Project Name</label>
+                                    <label for="projectname" class="col-form-label">Topic</label>
                                     <input required class="form-control @error('projectname') is-invalid @enderror" type="text" id="projectname" name="projectname" value="{{ old('projectname') }}" placeholder="Enter Project Name"
                                         oninvalid="this.setCustomValidity('Please Enter valid Project Name')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"> 
+                                <div class="form-group">
+                                    <label>Topic Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option selected disabled> -- Select Status --</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Not Active">Not Active</option>
+                                            <option value="Top Priority">Top Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="duedate">Due Date</label>
                                     <input required class="form-control @error('duedate') is-invalid @enderror" type="date" id="duedate" name="duedate" value="{{ old('duedate') }}"
@@ -334,73 +359,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Client Name</label>
-                                <select class="form-control" name="client" id="client">
-                                    <option selected disabled> -- Select Client Name --</option>
-                                    @foreach ($user as $orang)
-                                    @if ($orang->role_name == 'Client')
-                                        <option value="{{ $orang->id }}">{{ $orang->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>Type of Project</label>
-                                <select class="form-control" name="project_type" id="project_type">
-                                    <option selected disabled> -- Select Type of Project --</option>
-                                        <option value="WordPress">WordPress</option>
-                                        <option value="Laravel">Laravel</option>
-                                        <option value="Others">Others</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label>Client Status</label>
-                                    <select class="form-control" name="status" id="status">
-                                        <option selected disabled> -- Select Status --</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Not Active">Not Active</option>
-                                            <option value="Top Priority">Top Priority</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Web URL</label>
-                                    <input required class="form-control @error('website_url') is-invalid @enderror" type="url" id="website_url" name="website_url" value="{{ old('website_url') }}" placeholder="Example: https://www.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Staging URL</label>
-                                    <input required class="form-control @error('staging_url') is-invalid @enderror" type="url" id="staging_url" name="staging_url" value="{{ old('staging_url') }}" placeholder="Example: https://staging.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Staging URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="user">Team Member</label>
-                                    <select multiple class="form-control @error('user') is-invalid @enderror" name="user[]" id="user">
-                                        <option selected disabled>Select Team</option>
-                                        @foreach ($user as $orang)
-                                        @if ($orang->role_name == 'Team Member' )
-                                            <option value="{{ $orang->id}}">{{ $orang->name}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="modal-footer">
                             <div class="submit-section">
-                                <button type="submit" class="btn btn-primary submit-btn">Create Project</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Create Topic</button>
                             </div>
                         </div>
                     </form>

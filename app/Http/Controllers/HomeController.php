@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,12 +33,16 @@ class HomeController extends Controller
         if (Gate::allows('isAdmin')) {       
             // $user = Auth::user();
             $user = User::latest()->get();
-            $jumlahUser = DB::table('users')->where('role_name', 'Team Member')->orWhere('role_name', 'Admin')->count();
+            $jumlahUser = $user->count();
             $id = Auth::user();
 
             // $project = Project::find(Auth::user()->id);
             $project = Project::latest()->get();
             $jumlahProject = DB::table('projects')->where('status', '!=', 'Not Active')->count();
+
+            // videos
+            $videos = DB::table('videos')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
+            $jumlahVideo     = $videos->count();
 
             $task =Task::latest()->get();
             $jumlahTask = DB::table('tasks')->where('status', 'In Progress')->count();
@@ -45,9 +50,9 @@ class HomeController extends Controller
 
             $projectuser = DB::table('project_user')->get();
             return view('home', compact(
-                'user', 'task','id', 
+                'user', 'task','id', 'videos',
                 'project', 'projectuser', 'jumlahUser', 
-                'jumlahProject', 'jumlahTask', 'jumlahMyTask'
+                'jumlahProject', 'jumlahVideo', 'jumlahMyTask'
             ));
         } else {
             if (Gate::allows('isClient')) {

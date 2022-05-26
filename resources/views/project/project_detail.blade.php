@@ -13,7 +13,7 @@
                                 <h4 class="page-title">Dashboard</h4>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Admin</a></li>
-                                    <li class="breadcrumb-item"><a class="active" href="{{ url('admin/project/show') }}">Project</a></li>
+                                    <li class="breadcrumb-item"><a class="active" href="{{ url('admin/project/show') }}">Topic</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- Search Filter -->
-                    <form action="{{ route('admin/project/show/search') }}" method="POST" enctype="multipart/form-data">
+                    {{-- <form action="{{ route('admin/project/show/search') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row ">
                             <div class="col-12">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                     <!-- /Search Filter -->
 
                 </div>
@@ -99,21 +99,17 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mt-2 ml-3 header-title">Project Datatable</h4>
+                                <h4 class="mt-2 ml-3 header-title">Topic Datatable</h4>
                                 </p>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size: 14px">
-                                    <thead>
+                                <table id="datatable" class="table dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size: 14px">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th>No</th>
                                             <th hidden>ID</th>
-                                            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Project">Project Name</th>
-                                            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Team Assignee">Assignee</th>
-                                            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Type of Project">Project Type</th>
-                                            <th hidden>Due Date</th>
-                                            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Client's Contact Person">Contact</th>
-                                            <th hidden>Web URL</th>
-                                            <th hidden>Staging URL</th>
-                                            <th hidden>Status</th>
+                                            <th data-bs-toggle="tooltip" data-bs-placement="top" title="Project">Topic</th>
+                                            <th>Due Date</th>
+                                            {{-- <th data-bs-toggle="tooltip" data-bs-placement="top" title="Client's Contact Person">Contact</th> --}}
+                                            <th>Status</th>
                                             <th data-bs-toggle="tooltip" data-bs-placement="top" title="Action for each project" class="text-center">Modify</th>
                                         </tr>    
                                     </thead>
@@ -124,16 +120,8 @@
                                             <td class="no">{{ ++$key }}</td>
                                             <td hidden class="id">{{ $item->id }}</td>
                                             <td class="projectname">{{ $item->projectname }}</td>
-                                            <td class="user">
-                                                @foreach ($item->user as $user)
-                                                @if ($user->role_name != 'Client')
-                                                    <h6><span class="badge badge-info">{{ $user->name }}</span></h6>
-                                                @endif
-                                                @endforeach
-                                            </td>
-                                            <td class="project_type">{{ $item->project_type }}</td>
-                                            <td hidden class="duedate">{{ $item->duedate }}</td>
-                                            <td class="client">
+                                            <td class="duedate">{{ $item->duedate }}</td>
+                                            {{-- <td class="client">
                                                 @foreach ($item->user as $user)
                                                 @if ($user->role_name == 'Client')
                                                         <h6><span class="badge badge-secondary">{{ $user->name }}</span></h6>
@@ -141,15 +129,11 @@
                                                         <h6><span class="badge badge-danger">{{ $user->email }}</span></h6>
                                                 @endif
                                                 @endforeach
-                                            </td>
-                                            <td hidden class="website_url">{{ $item->website_url }}</td>
-                                            <td hidden class="staging_url">{{ $item->staging_url }}</td>
-                                            <td hidden class="status">{{ $item->status }}</td>
+                                            </td> --}}
+                                            <td class="status">{{ $item->status }}</td>
                                             <td class="text-center">
                                                 <a href="{{ url('admin/project/view/'.$item->id) }}">
-                                                    <i class="fas fa-eye mb-3 mr-2" style="font-size: 20px;color:#d4c220"></i>
-                                                </a>
-                                                
+                                                    <i class="fas fa-eye mb-3 mr-2" style="font-size: 20px;color:#d4c220"></i></a>
                                                 {{-- <a href="{{ url('admin/project/detail/'.$item->id) }}">
                                                     <i class="fas fa-edit mb-3" style="font-size: 25px;color:#20d4b6"></i>
                                                 </a> --}}
@@ -166,7 +150,7 @@
                                             <a href="{{ route('admin/project/new') }}">Add Project</a>
                                         </button> --}}
                                         <button type="submit" class="btn btn-primary waves-effect waves-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                                            <a href="#" data-toggle="modal" data-target="#add_project">Create Project</a>
+                                            <a href="#" data-toggle="modal" data-target="#add_project">Create Topic</a>
                                         </button>
                                     </div>
                                 </table>
@@ -187,7 +171,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title header-title">Create New Project</h5>
+                    <h5 class="modal-title header-title">Add New Topic</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -196,14 +180,27 @@
                     <form action="{{ route('admin/project/save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row"> 
-                            <div class="col-sm-8"> 
+                            <div class="col-sm-12"> 
                                 <div class="form-group">
-                                    <label for="projectname" class="col-form-label">Project Name</label>
+                                    <label for="projectname" class="col-form-label">Topic</label>
                                     <input required class="form-control @error('projectname') is-invalid @enderror" type="text" id="projectname" name="projectname" value="{{ old('projectname') }}" placeholder="Enter Project Name"
                                         oninvalid="this.setCustomValidity('Please Enter valid Project Name')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"> 
+                                <div class="form-group">
+                                    <label>Topic Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option selected disabled> -- Select Status --</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Not Active">Not Active</option>
+                                            <option value="Top Priority">Top Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="duedate">Due Date</label>
                                     <input required class="form-control @error('duedate') is-invalid @enderror" type="date" id="duedate" name="duedate" value="{{ old('duedate') }}"
@@ -216,73 +213,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Client Name</label>
-                                <select class="form-control" name="client" id="client">
-                                    <option selected disabled> -- Select Client Name --</option>
-                                    @foreach ($orang as $user)
-                                    @if ($user->role_name == 'Client')
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>Type of Project</label>
-                                <select class="form-control" name="project_type" id="project_type">
-                                    <option selected disabled> -- Select Type of Project --</option>
-                                        <option value="WordPress">WordPress</option>
-                                        <option value="Laravel">Laravel</option>
-                                        <option value="Others">Others</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label>Client Status</label>
-                                    <select class="form-control" name="status" id="status">
-                                        <option selected disabled> -- Select Status --</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Not Active">Not Active</option>
-                                            <option value="Top Priority">Top Priority</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Web URL</label>
-                                    <input required class="form-control @error('website_url') is-invalid @enderror" type="url" id="website_url" name="website_url" value="{{ old('website_url') }}" placeholder="Example: https://www.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Staging URL</label>
-                                    <input required class="form-control @error('staging_url') is-invalid @enderror" type="url" id="staging_url" name="staging_url" value="{{ old('staging_url') }}" placeholder="Example: https://staging.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Staging URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="user">Team Member</label>
-                                    <select multiple class="form-control @error('user') is-invalid @enderror" name="user[]" id="user">
-                                        <option selected disabled>Select Team</option>
-                                        @foreach ($orang as $user)
-                                        @if ($user->role_name == 'Team Member' )
-                                            <option value="{{ $user->id}}">{{ $user->name}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="modal-footer">
                             <div class="submit-section">
-                                <button type="submit" class="btn btn-primary submit-btn">Create Project</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Create Topic</button>
                             </div>
                         </div>
                     </form>
@@ -307,78 +240,31 @@
                         @csrf
                         <input type="hidden" name="id" id="id" value="">
                         <div class="row"> 
-                            <div class="col-sm-8"> 
+                            <div class="col-sm-12"> 
                                 <div class="form-group">
                                     <label for="projectname" class="col-form-label">Project Name</label>
                                     <input class="form-control" type="text" id="e_projectname" name="projectname" value="">
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="row"> 
+                            <div class="col-sm-6"> 
+                                <div class="form-group">
+                                    <label>Topic Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        {{-- <option selected disabled>Status</option> --}}
+                                        @foreach ($data as $item)
+                                            <option value="Active" {{ $item->status == 'Active' ? 'selected' : 0 }}>Active</option>
+                                            <option value="Not Active" {{ $item->status == 'Not Active' ? 'selected' : 0 }}>Not Active</option>
+                                            <option value="Top Priority" {{ $item->status == 'Top Priority' ? 'selected' : 0 }}>Top Priority</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="duedate">Due Date</label>
                                     <input class="form-control" type="date" id="e_duedate" name="duedate" value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Client Name</label>
-                                <select class="form-control" name="client" id="e_client">
-                                    <option selected disabled>Select Client Name</option>
-                                    @foreach ($orang as $user)
-                                    @if ($user->role_name == 'Client')
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>Type of Project</label>
-                                <select class="form-control" name="project_type" id="e_project_type">
-                                    {{-- <option selected disabled>Select Type of Project</option> --}}
-                                        <option value="WordPress">WordPress</option>
-                                        <option value="Laravel">Laravel</option>
-                                        <option value="Others">Others</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label>Client Status</label>
-                                    <select class="form-control" name="status" id="e_status">
-                                        {{-- <option selected disabled>Status</option> --}}
-                                            <option value="Active">Active</option>
-                                            <option value="Not Active">Not Active</option>
-                                            <option value="Top Priority">Top Priority</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Web URL</label>
-                                    <input class="form-control" type="url" id="e_website_url" name="website_url" value="{{ old('website_url') }}" placeholder="Enter Website URL">
-                                </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Staging URL</label>
-                                    <input class="form-control" type="url" id="e_staging_url" name="staging_url" value="{{ old('staging_url') }}" placeholder="Enter Staging URL">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="user">Team Member</label>
-                                    <select required class="form-control" multiple="" name="user[]" id="e_user">
-                                        <option selected disabled>Select Team</option>
-                                        @foreach ($orang as $user)
-                                        @if ($user->role_name == 'Team Member' )
-                                            <option value="{{ $user->id}}">{{ $user->name}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -401,7 +287,7 @@
                 "paging":true,
                 "ordering":true,
                 "columnDefs":[{
-                    "targets":[6,10], 
+                    "targets":[5], 
                     "orderable":false,
                 }]
             });

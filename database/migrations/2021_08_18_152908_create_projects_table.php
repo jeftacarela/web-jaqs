@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration
             // $table->string('project_type');
             // $table->text('website_url')->unique();
             // $table->text('staging_url');
-            // $table->string('status');
+            $table->string('status');
             $table->string('duedate');
             $table->timestamps();
         });

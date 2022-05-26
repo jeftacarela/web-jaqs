@@ -358,8 +358,8 @@
     <script>
         $(document).ready( function() {
             $('table#datatable').DataTable({
-                "searching": true,
-                "paging":true,
+                "searching": false,
+                "paging":false,
                 "ordering":true,
                 "columnDefs":[{
                     "targets":[1,11, 4], 

@@ -34,21 +34,13 @@ class ProjectController extends Controller
         if(Gate::allows('isAdmin')){
             $request->validate([
                 'projectname' => 'required|string|max:255',
-                'project_type' => 'required',
                 'status' => 'required',
-                'website_url' => 'required',
-                'staging_url' => 'required',
                 'duedate' => 'required',
-                // 'client' => 'required',
-                // 'user' => 'required',
             ]);
 
             $project = new Project;
             $project->projectname = $request->projectname;
-            $project->project_type = $request->project_type;
-            $project->status = $request->status;
-            $project->website_url = $request->website_url;
-            $project->staging_url = $request->staging_url;        
+            $project->status = $request->status;      
             $project->duedate = $request->duedate;
             $project->save();
 
@@ -62,8 +54,8 @@ class ProjectController extends Controller
             //     'duedate'       => $request->duedate,
             // ]);
 
-            $project->user()->attach($request->user);
-            $project->user()->attach($request->client);
+                // $project->user()->attach($request->user);
+                // $project->user()->attach($request->client);
 
             // dd($project);
 
@@ -81,15 +73,6 @@ class ProjectController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $data = Project::latest()->get();
-
-            // Join 3 table ->projects, users, project_user
-            // For easy query in searcjProjects function
-            // $data = DB::table('projects')
-            //         ->join('project_user', 'project_user.project_id', '=', 'projects.id')
-            //         ->join('users', 'users.id', '=', 'project_user.user_id')
-            //         ->select('projects.*', 'project_user.project_id', 'project_user.user_id', 'users.email','users.name','users.role_name','users.phone','users.password')
-            //         ->get();
-
             $orang = User::all();
             return view('project.project_detail', compact('data', 'orang'));
         } else {
@@ -123,9 +106,9 @@ class ProjectController extends Controller
                         ->leftJoin('projects', 'projects.id', '=', 'questions.project_id')
                         ->get(); 
             $videos = DB::table('projects')
-                        // ->where('id', $id)
                         ->leftJoin('videos', 'videos.project_id', '=', 'projects.id')
                         // ->leftJoin('questions', 'projects.id', '=', 'questions.project_id')
+                        ->where('videos.project_id', $id)
                         ->get(); 
             // dd($questions);
 

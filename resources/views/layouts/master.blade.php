@@ -286,13 +286,13 @@
          $('#id').val(_this.find('.id').text());
          $('#e_projectname').val(_this.find('.projectname').text());
          $('#e_duedate').val(_this.find('.duedate').text());
-         $('#e_website_url').val(_this.find('.website_url').text());
-         $('#e_staging_url').val(_this.find('.staging_url').text());
+        //  $('#e_website_url').val(_this.find('.website_url').text());
+        //  $('#e_staging_url').val(_this.find('.staging_url').text());
          // $('#e_image').val(_this.find('.image').text());
 
-         var project_type = (_this.find(".project_type").text());
-         var _option = '<option selected value="' + project_type+ '">' + _this.find('.project_type').text() + '</option>'
-         $( _option).appendTo("#e_project_type");
+        //  var project_type = (_this.find(".project_type").text());
+        //  var _option = '<option selected value="' + project_type+ '">' + _this.find('.project_type').text() + '</option>'
+        //  $( _option).appendTo("#e_project_type");
 
         //  var client = (_this.find(".client").text());
         //  var _option = '<option selected value="' +client+ '">' + _this.find('.client').text() + '</option>'
@@ -302,9 +302,9 @@
         //  var _option = '<option selected value="' +user+ '">' + _this.find('.user').text() + '</option>'
         //  $( _option).appendTo("#e_user");
 
-         var status = (_this.find(".status").text());
-         var _option = '<option selected value="' +status+ '">' + _this.find('.status').text() + '</option>'
-         $( _option).appendTo("#e_status");
+        //  var status = (_this.find(".status").text());
+        //  var _option = '<option selected value="' +status+ '">' + _this.find('.status').text() + '</option>'
+        //  $( _option).appendTo("#e_status");
          
      });
     </script>
