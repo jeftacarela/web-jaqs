@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
@@ -116,8 +118,22 @@ class ProjectController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $orang = User::all();
-            $data = Project::findorfail($id);
-            return view('project.each_project', compact('data','orang'));
+            $questions = DB::table('questions')
+                        ->where('project_id', $id)
+                        ->leftJoin('projects', 'projects.id', '=', 'questions.project_id')
+                        ->get(); 
+            $videos = DB::table('projects')
+                        // ->where('id', $id)
+                        ->leftJoin('videos', 'videos.project_id', '=', 'projects.id')
+                        // ->leftJoin('questions', 'projects.id', '=', 'questions.project_id')
+                        ->get(); 
+            // dd($questions);
+
+            $id = Auth::user()->id;
+            // $user = DB::table('users')->get();
+            // $data = Video::latest()->get();
+            $project = Project::latest()->get();        
+            return view('project.each_project', compact('videos','questions','orang', 'project'));
         } else {
             Toastr::error('ADMIN ONLY');
             return redirect()->back();

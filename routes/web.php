@@ -71,7 +71,7 @@ Route::group(['middleware'=>'auth'],function()
     Route::get('admin/project/detail/{id}', [ProjectController::class, 'viewEdit']);
     Route::post('admin/project/update', [ProjectController::class, 'update'])->name('admin/project/update');
     Route::get('admin/project/delete/{id}', [ProjectController::class, 'delete']);
-    Route::get('admin/project/view/{id}', [ProjectController::class, 'viewEach']);
+    Route::get('admin/project/view/{id}', [ProjectController::class, 'viewEach'])->name('admin/project/view');
 
     Route::post('admin/project/show/search', [ProjectController::class, 'searchProject'])->name('admin/project/show/search');
     Route::post('admin/project/view/search', [ProjectController::class, 'searchEachProject'])->name('admin/project/view/search');
