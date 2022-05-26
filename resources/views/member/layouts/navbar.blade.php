@@ -1,6 +1,6 @@
 <div class="topbar-left">
     <a href="{{url('member/')}}" class="logo">
-        <img src="images/cabaretti.png" class="waves-effect" alt="" width="100">
+        <img src="images/jaqs-sm.jpeg" class="waves-effect" alt="" width="50">
     </a>
 </div>
 <!-- Left Sidebar Start -->

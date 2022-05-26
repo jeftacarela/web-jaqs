@@ -46,8 +46,8 @@
                     {{-- <img src="{{ URL::to('assets/images/logo-sm.png') }}" class="logo-sm" alt="" height="24"> --}}
                     
 
-                    <img src="{{ URL::to('images/cabaretti.png') }}" class="logo-lg" alt="" height="25">
-                    <img src="{{ URL::to('images/cabaretti-sm.png') }}" class="logo-sm" alt="" width="24">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-lg mt-2" alt="" height="50">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-sm" alt="" width="50">
                 </a>
             </div>
             <!-- Search input -->
