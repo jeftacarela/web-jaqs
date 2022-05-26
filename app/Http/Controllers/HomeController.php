@@ -43,6 +43,38 @@ class HomeController extends Controller
             // videos
             $videos = DB::table('videos')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
             $jumlahVideo     = $videos->count();
+            $showVideos = DB::table('videos')->leftJoin('projects', 'projects.id', '=', 'project_id')->take(4)->get();
+            
+            $time = [];
+            foreach ($videos as $key => $value) {
+                array_push($time, $value->duration);
+            }
+             
+            $sum = strtotime('00:00:00');
+            $totaltime = 0;
+             
+            foreach( $time as $element ) {
+                // Converting the time into seconds
+                $timeinsec = strtotime($element) - $sum;
+                // Sum the time with previous value
+                $totaltime = $totaltime + $timeinsec;
+            }
+            // Hours is obtained by dividing
+            // totaltime with 3600
+            $h = intval($totaltime / 3600);
+            $totaltime = $totaltime - ($h * 3600);
+             
+            // Minutes is obtained by dividing
+            // remaining total time with 60
+            $m = intval($totaltime / 60);
+            // Remaining value is seconds
+            $s = $totaltime - ($m * 60);
+             
+            // dd($h, $m, $s);
+
+            // questions
+            $questions = DB::table('questions')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
+            $jumlahQuestion     = $questions->count();
 
             $task =Task::latest()->get();
             $jumlahTask = DB::table('tasks')->where('status', 'In Progress')->count();
@@ -50,9 +82,9 @@ class HomeController extends Controller
 
             $projectuser = DB::table('project_user')->get();
             return view('home', compact(
-                'user', 'task','id', 'videos',
-                'project', 'projectuser', 'jumlahUser', 
-                'jumlahProject', 'jumlahVideo', 'jumlahMyTask'
+                'user', 'task','id', 'videos', 'showVideos', 'questions',
+                'project', 'projectuser', 'jumlahUser', 'jumlahQuestion',
+                'jumlahProject', 'jumlahVideo', 'jumlahMyTask', 'h', 'm', 's'
             ));
         } else {
             if (Gate::allows('isClient')) {

@@ -94,7 +94,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
-                                        <h5 class="font-14">Total Topic(s)</h5>
+                                        <h5 class="font-14">Total Topics</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahProject }}</h4>
                                     </div>
                                 </div>
@@ -106,8 +106,8 @@
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
-                                        <h5 class="font-14">Total Video(s)</h5>
-                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }}</h4>
+                                        <h5 class="font-14">Total Videos</h5>
+                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }} <b class="text-muted">({{$h}} : {{$m}})</b></h4>
                                     </div>
                                 </div>
                             </div>
@@ -137,6 +137,18 @@
                             </div>
                         </div>
                     </div> --}}
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center p-1">
+                                    <div class="col-lg-10">
+                                        <h5 class="font-14">Total Questions</h5>
+                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahQuestion }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
@@ -202,7 +214,29 @@
                 @endforeach --}}
 
                  <div class="row">
-                    <div class="col-xl-6">
+                    @foreach ($showVideos as $item)
+                    <div class="col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="social-box text-center">
+                                    {{-- <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3> --}}
+                                    <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                    </iframe>
+                                    <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5>
+                                    <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p>
+
+                                    {{-- <div class="mt-2 pt-1 mb-2">
+                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                 </div>
+
+                 <div class="row">
+                    <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Your Recent Task Activity</h4>
@@ -222,11 +256,33 @@
 
                             </div>
                         </div>
-                    </div>  
-                    <div class="col-xl-6">
+                    </div>
+                    <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mt-0 header-title mb-4">Recent All Task Activity</h4>
+                                <h4 class="mt-0 header-title mb-4">Recent Questions</h4>
+                                <ol class="activity-feed mb-0 pl-3">
+                                    @foreach ($questions as $item)
+                                    <li class="feed-item">
+                                        <div class="feed-item-list">
+                                            {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
+                                            <a href="{{ url('admin/quiz/show') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
+                                            <p class="font-15 mt-0 mb-0"><b class="text-warning">{{ $item->projectname }}</b> {{ Str::limit($item->question, 75, '...')}}</p>
+                                            {{-- <p class="font-15 mt-0 mb-0"><b class="text-warning">{{ $item->projectname }}</b> {{ Str::limit($item->description, 75, '...')}}</p> --}}
+                                            {{-- <iframe width="200" height="100" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                            </iframe> --}}
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ol>
+
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mt-0 header-title mb-4">Recent User Activity</h4>
                                 <ol class="activity-feed mb-0 pl-3">
                                     @foreach ($task as $item)
                                     {{-- @if ($item->user_id == $id->id) --}}
@@ -270,22 +326,7 @@
                             </div>
                         </div> --}}
 
-                    {{-- <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="social-box text-center">
-                                    <i class="mdi mdi-facebook text-primary h1"></i>
-                                    <h5 class="font-19 mt-3"><span class="text-primary">8.625K</span> New Peoples</h5>
-                                    <p class="text-muted">Your main list is growing</p>
-
-                                    <div class="mt-2 pt-1 mb-2">
-                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
+                       {{-- <div class="card">
                             <div class="card-body">
                                 <div class="social-box text-center">
                                     <i class="mdi mdi-twitter text-info h1"></i>

@@ -13,7 +13,7 @@
                                 <h4 class="page-title">Dashboard</h4>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Admin</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ url('admin/project/show') }}">Project</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ url('admin/project/show') }}">Topic</a></li>
                                     <li class="breadcrumb-item"><a class="active" href="#">Edit</a></li>
                                 </ol>
                             </div>

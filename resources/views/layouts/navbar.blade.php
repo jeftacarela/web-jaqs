@@ -23,13 +23,13 @@
                         <li><a href="{{ route('form/information/show') }}">Company List</a></li>
                     </ul>
                 </li> --}}
-                <li>
+                {{-- <li>
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i><span>Tasks<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
                     <ul class="submenu">
                         <li><a href="{{ route('admin/task/me') }}">My Tasks & Report</a></li>
                         <li><a href="{{ route('admin/task/show') }}">Team Tasks & Report</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 {{-- <li>
                     <a href="{{ route('admin/project/show') }}" class="waves-effect">
                         <i class="dripicons-to-do"></i><span class="badge badge-info badge-pill float-right"></span><span>Projects</span>

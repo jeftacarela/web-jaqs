@@ -141,7 +141,7 @@
                                                 <iframe width="200" height="100" src="https://www.youtube.com/embed/{{ $item->video }}">
                                                 </iframe>
                                             </td>
-                                            <td data-exclude="true" class="description text-center">{{ $item->description }}</td>
+                                            <td data-exclude="true" class="description text-justify">{{ $item->description }}</td>
                                             <td class="text-center" data-exclude="true">
                                                 <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
                                                     <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
