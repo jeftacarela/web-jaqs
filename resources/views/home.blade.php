@@ -107,7 +107,21 @@
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
                                         <h5 class="font-14">Total Videos</h5>
-                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }} <b class="text-muted">({{$h}} : {{$m}})</b></h4>
+                                        {{-- <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }} <b class="text-muted">({{$h}} : {{$m}})</b></h4> --}}
+
+                                        @if ($h > 1)
+                                            @if ($minute > 1)
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minutes</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>    
+                                            @else
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minute</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>                                            
+                                            @endif
+                                        @else
+                                            @if ($m > 1)
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hour</b> {{ $m }} <b class="text-muted font-8">minutes</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>    
+                                            @else
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hour</b> {{ $m }} <b class="text-muted font-8">minute</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>                                            
+                                            @endif                                        
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -284,16 +298,18 @@
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Recent User Activity</h4>
                                 <ol class="activity-feed mb-0 pl-3">
-                                    @foreach ($task as $item)
+                                    @foreach ($log as $item)
                                     {{-- @if ($item->user_id == $id->id) --}}
                                     <li class="feed-item">
                                         <div class="feed-item-list">
                                             {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
                                             <a href="{{ url('admin/task/show/') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
-                                            {{-- <p class="font-15 mt-0 mb-0">{{ $item->name }}
-                                                <b class="text-warning"> {{ $item->project->projectname }}</b>
-                                                <b class="text-primary"> {{ $item->user->name }}</b>
-                                            </p> --}}
+                                            <p class="font-15 mt-0 mb-0">{{ $item->subject }}
+                                                <b class="text-warning"> {{ $item->ip }}</b>
+                                                @foreach ($user as $orang)
+                                                    <b class="text-primary"> {{ ($item->user_id == $orang->id ? $orang->name : '') }}</b>
+                                                @endforeach
+                                            </p>
                                         </div>
                                     </li>
                                     {{-- @endif --}}

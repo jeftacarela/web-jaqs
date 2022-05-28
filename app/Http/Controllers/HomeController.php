@@ -6,6 +6,7 @@ use App\Helpers\LogActivity;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\UserLogTable;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,9 @@ class HomeController extends Controller
              
             // dd($h, $m, $s);
 
+            $log = UserLogTable::latest()->where('subject', '!=', 'logout success')->get();
+            // dd($log);
+
             // questions
             $questions = DB::table('questions')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
             $jumlahQuestion     = $questions->count();
@@ -87,7 +91,7 @@ class HomeController extends Controller
             return view('home', compact(
                 'user', 'task','id', 'videos', 'showVideos', 'questions',
                 'project', 'projectuser', 'jumlahUser', 'jumlahQuestion',
-                'jumlahProject', 'jumlahVideo', 'jumlahMyTask', 'h', 'm', 's'
+                'jumlahProject', 'jumlahVideo', 'jumlahMyTask', 'h', 'm', 's', 'log'
             ));
         } else {
             if (Gate::allows('isClient')) {
