@@ -9,7 +9,7 @@
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
     {{-- <link rel="shortcut icon" href="{{ URL::to('assets/images/favicon.ico') }}"> --}}
-    <link rel="shortcut icon" href="{{ URL::to('images/cabaretti-sm.png') }}">
+    <link rel="shortcut icon" href="{{ URL::to('images/jaqs-sm.jpeg') }}">
     <link href="{{ URL::to('../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::to('assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -71,13 +72,16 @@ class LoginController extends Controller
 
    
         if (Auth::attempt(['email'=>$email,'password'=>$password,'status'=>'Active'])) {
+            LogActivity::addToLog('login success');
             Toastr::success('Login Sucessful','Success');
             return redirect()->intended('home');
         }elseif (Auth::attempt(['email'=>$email,'password'=>$password,'status'=> null])) {
+            LogActivity::addToLog('login success');
             Toastr::success('Login Successful','Success');
             return redirect()->intended('home');
         }
         else{
+            LogActivity::addToLog('attempt login, login '.$email.' failed');
             Toastr::error('FAIL, WRONG USERNAME OR PASSWORD','Error');
             return redirect('login');
         }
@@ -85,6 +89,7 @@ class LoginController extends Controller
 
     public function logout()
     {
+        // LogActivity::addToLog('logout success');
         Auth::logout();
         Toastr::success('Logout Successful','Success');
         return redirect('login');

@@ -8,7 +8,7 @@
     <title>Dashboard Home</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
-    <link rel="shortcut icon" href="{{ URL::to('images/cabaretti-sm.png') }}">
+    <link rel="shortcut icon" href="{{ URL::to('images/jaqs-sm.jpeg') }}">
     <link href="{{ URL::to('../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <!-- DataTables -->
     <link href="{{ URL::to('../plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -46,8 +46,8 @@
                     {{-- <img src="{{ URL::to('assets/images/logo-sm.png') }}" class="logo-sm" alt="" height="24"> --}}
                     
 
-                    <img src="{{ URL::to('images/cabaretti.png') }}" class="logo-lg" alt="" height="25">
-                    <img src="{{ URL::to('images/cabaretti-sm.png') }}" class="logo-sm" alt="" width="24">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-lg mt-2" alt="" height="50">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-sm" alt="" width="50">
                 </a>
             </div>
             <!-- Search input -->
@@ -286,13 +286,13 @@
          $('#id').val(_this.find('.id').text());
          $('#e_projectname').val(_this.find('.projectname').text());
          $('#e_duedate').val(_this.find('.duedate').text());
-         $('#e_website_url').val(_this.find('.website_url').text());
-         $('#e_staging_url').val(_this.find('.staging_url').text());
+        //  $('#e_website_url').val(_this.find('.website_url').text());
+        //  $('#e_staging_url').val(_this.find('.staging_url').text());
          // $('#e_image').val(_this.find('.image').text());
 
-         var project_type = (_this.find(".project_type").text());
-         var _option = '<option selected value="' + project_type+ '">' + _this.find('.project_type').text() + '</option>'
-         $( _option).appendTo("#e_project_type");
+        //  var project_type = (_this.find(".project_type").text());
+        //  var _option = '<option selected value="' + project_type+ '">' + _this.find('.project_type').text() + '</option>'
+        //  $( _option).appendTo("#e_project_type");
 
         //  var client = (_this.find(".client").text());
         //  var _option = '<option selected value="' +client+ '">' + _this.find('.client').text() + '</option>'
@@ -302,9 +302,9 @@
         //  var _option = '<option selected value="' +user+ '">' + _this.find('.user').text() + '</option>'
         //  $( _option).appendTo("#e_user");
 
-         var status = (_this.find(".status").text());
-         var _option = '<option selected value="' +status+ '">' + _this.find('.status').text() + '</option>'
-         $( _option).appendTo("#e_status");
+        //  var status = (_this.find(".status").text());
+        //  var _option = '<option selected value="' +status+ '">' + _this.find('.status').text() + '</option>'
+        //  $( _option).appendTo("#e_status");
          
      });
     </script>

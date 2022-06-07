@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
@@ -32,21 +34,13 @@ class ProjectController extends Controller
         if(Gate::allows('isAdmin')){
             $request->validate([
                 'projectname' => 'required|string|max:255',
-                'project_type' => 'required',
                 'status' => 'required',
-                'website_url' => 'required',
-                'staging_url' => 'required',
                 'duedate' => 'required',
-                // 'client' => 'required',
-                // 'user' => 'required',
             ]);
 
             $project = new Project;
             $project->projectname = $request->projectname;
-            $project->project_type = $request->project_type;
-            $project->status = $request->status;
-            $project->website_url = $request->website_url;
-            $project->staging_url = $request->staging_url;        
+            $project->status = $request->status;      
             $project->duedate = $request->duedate;
             $project->save();
 
@@ -60,8 +54,8 @@ class ProjectController extends Controller
             //     'duedate'       => $request->duedate,
             // ]);
 
-            $project->user()->attach($request->user);
-            $project->user()->attach($request->client);
+                // $project->user()->attach($request->user);
+                // $project->user()->attach($request->client);
 
             // dd($project);
 
@@ -79,15 +73,6 @@ class ProjectController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $data = Project::latest()->get();
-
-            // Join 3 table ->projects, users, project_user
-            // For easy query in searcjProjects function
-            // $data = DB::table('projects')
-            //         ->join('project_user', 'project_user.project_id', '=', 'projects.id')
-            //         ->join('users', 'users.id', '=', 'project_user.user_id')
-            //         ->select('projects.*', 'project_user.project_id', 'project_user.user_id', 'users.email','users.name','users.role_name','users.phone','users.password')
-            //         ->get();
-
             $orang = User::all();
             return view('project.project_detail', compact('data', 'orang'));
         } else {
@@ -116,8 +101,22 @@ class ProjectController extends Controller
     {
         if(Gate::allows('isAdmin')){
             $orang = User::all();
-            $data = Project::findorfail($id);
-            return view('project.each_project', compact('data','orang'));
+            $questions = DB::table('questions')
+                        ->where('project_id', $id)
+                        ->leftJoin('projects', 'projects.id', '=', 'questions.project_id')
+                        ->get(); 
+            $videos = DB::table('projects')
+                        ->leftJoin('videos', 'videos.project_id', '=', 'projects.id')
+                        // ->leftJoin('questions', 'projects.id', '=', 'questions.project_id')
+                        ->where('videos.project_id', $id)
+                        ->get(); 
+            // dd($questions);
+
+            $id = Auth::user()->id;
+            // $user = DB::table('users')->get();
+            // $data = Video::latest()->get();
+            $project = Project::latest()->get();        
+            return view('project.each_project', compact('videos','questions','orang', 'project'));
         } else {
             Toastr::error('ADMIN ONLY');
             return redirect()->back();
@@ -131,31 +130,23 @@ class ProjectController extends Controller
             $id = $request->id;
             $projectname = $request->projectname;
             $duedate = $request->duedate;
-            // $user = $request->user;
-            $project_type = $request->project_type;
             $status = $request->status;
-            $website_url = $request->website_url;
-            $staging_url = $request->staging_url;        
+            // $user = $request->user;
 
             $data = Project::findorfail($id);
 
             $update = [
                 // 'id' => $id,
+                'status'      => $status,
                 'projectname' => $projectname,
-                'duedate' => $duedate,
-                'project_type'  => $project_type,
-                'status'        => $status,
-                'website_url'   => $website_url,
-                'staging_url'   => $staging_url,
+                'duedate'     => $duedate,
             ];
-            $data->user()->sync($request->client);
-            $data->user()->attach($request->user);
+            // $data->user()->sync($request->client);
+            // $data->user()->attach($request->user);
 
+            // dd($update);
             $data->update($update);
 
-            // Project::where('id',$request->id)->update($update);
-
-            // dd($data);
             Toastr::success('Data Updated','Success');
             return redirect()->back();
         } else {

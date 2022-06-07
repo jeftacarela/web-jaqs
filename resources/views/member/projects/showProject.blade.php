@@ -17,7 +17,7 @@
                                 @endcan
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('member') }}">Team Member</a></li>
-                                    <li class="breadcrumb-item"><a class="active" href="{{ url('member/project/') }}">Project</a></li>
+                                    <li class="breadcrumb-item"><a class="active" href="{{ url('member/project/') }}">Topic</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         </div>
                     @endforeach
                 @endif
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -42,12 +42,8 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            {{-- <th>User Assignee</th> --}}
                                             <th>Project Name</th>
-                                            <th>Type</th>
                                             <th>Status</th>
-                                            <th>Website URL</th>
-                                            <th>Staging URL</th>
                                         </tr>    
                                     </thead>
 
@@ -55,23 +51,10 @@
                                     @foreach ($project as $key => $item)
                                         <tr>
                                             <td class="id">{{ ++$key }}</td>
-                                            {{-- <td>
-                                                @foreach ($item->user as $orang)
-                                                @if ($orang->role_name != 'Client')
-                                                <ul>
-                                                    <h5><span class="badge badge-info">{{ $orang->name }}</span></h5>
-                                                </ul>
-                                                @endif
-                                                @endforeach
-                                            </td> --}}
-                                            {{-- <td class="name">{{ $item->user->name }}</td> --}}
                                             <td class="projectname">
                                                 <a href="{{ url('member/project/view/'.$item->id) }}" class="text-primary">{{ $item->projectname }}</a> 
                                             </td>
-                                            <td class="project_type">{{ $item->project_type }}</td>
                                             <td class="status">{{ $item->status }}</td>
-                                            <td class="website-url">{{ $item->website_url }}</td>
-                                            <td class="staging-url">{{ $item->staging_url }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -80,7 +63,34 @@
                         </div>
                     </div>
                     <!-- end col -->
-                </div>
+                </div> --}}
+
+                <div class="row">
+                    @foreach ($project as $item)
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center p-1">
+                                    <div class="col-lg-10">
+                                        <h4 class="mt-2 ml-3 header-title">
+                                            <a href="{{ url('member/project/view/'.$item->id) }}" class="text-dark">{{ $item->projectname }}</a>
+                                            <i class="dripicons-chevron-right text-right" style="font-size: 15px;color:#000000"></i>
+                                        </h4><br>
+                                        {{-- <a href="{{ url('member/project/view/'.$item->id) }}" class="text-primary">{{ $item->projectname }}</a> --}}
+                                        @foreach ($video as $key => $vid)
+                                            @if ($vid->project_id == $item->id)
+                                            <iframe width="320" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
+                                            <h6 class="text-secondary ml-2 mb-0" style="font-size: 12px">{{ Str::limit($vid->description, 75, ' ...')}}</h6><br>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- end col -->
+                    @endforeach
+                    </div>
                 <!-- end page-title -->
             </div>
             <!-- container-fluid -->

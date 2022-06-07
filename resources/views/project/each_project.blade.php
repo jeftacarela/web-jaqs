@@ -15,9 +15,13 @@
                                 <h4 class="page-title">Dashboard</h4>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Admin</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ url('admin/project/show') }}">Project</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ url('admin/project/show') }}">Topic</a></li>
                                     <li class="breadcrumb-item"><a class="active" href="#">Detail</a></li>
+                                <br>
                             </div>
+                            @foreach ($videos as $item)
+                                @once <h1 class="page-title">{{ $item->projectname }}</h1> @endonce
+                            @endforeach
                         </div>
                         {{-- <div class="col-md-4">
                             <div class="float-right d-none d-md-block app-datepicker">
@@ -26,68 +30,6 @@
                             </div>
                         </div> --}}
                     </div>
-
-                    <!-- Search Filter -->
-                    <form action="{{ route('admin/project/view/search') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row ">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row ml-2">
-                                            <input hidden type="text" id="project" name="project" value="{{ $data->id }}">
-                                            <div class="col-sm-2"> 
-                                                <div class="form-group">
-                                                    <label class="text-muted">User Assignee</label>
-                                                    <select class="form-control" name="user_id" id="user_id">
-                                                        <option selected disabled value="">All</option>
-                                                        @foreach ($orang as $user )
-                                                            @if ($user->role_name != 'Client')
-                                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-auto"> 
-                                                <div class="form-group">
-                                                    <label class="text-muted">Status</label>
-                                                    <select  class="form-control" name="status" id="status">
-                                                        <option selected value="">All</option>
-                                                            <option value="In Progress">In Progress</option>
-                                                            <option value="Wait for Review">Wait for Review</option>
-                                                            <option value="Completed">Completed</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-auto"> 
-                                                <div class="form-group">
-                                                    <label class="text-muted">From</label>
-                                                    <input  class="form-control date-picker" type="date" id="from" name="from" value="{{ old('duedate') }}"
-                                                        oninvalid="this.setCustomValidity('Please Enter valid Date')" oninput="setCustomValidity('')">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-auto"> 
-                                                <div class="form-group">
-                                                    <label class="text-muted">To</label>
-                                                    <input  class="form-control date-picker" type="date" id="to" name="to" value="{{ old('duedate') }}"
-                                                        oninvalid="this.setCustomValidity('Please Enter valid Date')" oninput="setCustomValidity('')">
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="">&nbsp;</label>
-                                                    <button type="submit" class="btn btn-success btn-block submit-btn"> Search </button>
-                                                </div>
-                                            </div>   
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- /Search Filter -->
-
                 </div>
                 {{-- message --}}
                 {!! Toastr::message() !!}
@@ -99,92 +41,128 @@
                     @endforeach
                 @endif
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xl-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mt-2 ml-3 header-title">Project {{ $data->projectname }}</h4>
+                                <h4 class="mt-0 header-title mb-4">Videos Datatable</h4>
                                 </p>
-                                <table id="datatable" class="table table-bordered dt-responsive" 
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;" data-cols-width="5,30,10,15,10,10,10,15,30">
-                                    <thead>
+                                <table name="video" id="datatable" class="table dt-responsive text-center" 
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size: 14px" data-cols-width="">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th style="max-width: 5%">No</th>
                                             <th data-exclude="true" hidden>ID</th>
-                                            <th style="max-width: 25%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Task">Task Name</th>
-                                            <th data-exclude="true" hidden>User ID</th>
-                                            <th style="max-width: 10%" data-bs-toggle="tooltip" data-bs-placement="top" title="Member Name Assignee">Assignee</th>
-                                            <th style="max-width: 10%" data-bs-toggle="tooltip" data-bs-placement="top" title="Status of Task">Status</th>
+                                            {{-- <th data-exclude="true" hidden>Topic ID</th> --}}
+                                            {{-- <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Project">Topic</th> --}}
                                             <th hidden>Duration</th>
-                                            <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Durtions (hour:minute)">Duration</th>
-                                            <th hidden>Bill</th>
-                                            <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Billing Time (hour:minute)" class="text-center">Bill</th>
-                                            <th style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Billing Status">Billed</th>
-                                            <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Dateline for each Task">Due Date</th>
-                                            <th hidden>Notes</th>
-                                            <th style="max-width: 10%" data-bs-toggle="tooltip" data-bs-placement="top" title="Action for each task" class="text-center" data-exclude="true">Modify</th>
+                                            <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Time (hour:minute)">Duration</th>
+                                            <th hidden>Video</th>
+                                            <th style="max-width: 12%" title="link">Youtube Link</th>
+                                            <th style="max-width: 12%" title="Description">Description</th>
+                                            <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th>
                                         </tr>    
                                     </thead>
 
                                     <tbody>
-                                    @foreach ($data->task as $key => $item)
+                                    @foreach ($videos as $key => $item)
                                         <tr>
                                             <td class="no">{{ ++$key }}</td>
                                             <td data-exclude="true" hidden class="id">{{ $item->id }}</td>
-                                            <td class="name">{{ $item->name }}</td>
-                                            <td data-exclude="true" hidden class="user_id">{{ $item->user->id }}</td>
-                                            <td class="user">{{ $item->user->name }}</td>
-                                            <td class="status">{{ $item->status }}</td>
-                                            
+                                            {{-- <td data-exclude="true" hidden class="project_id">{{ $item->project->id }}</td> --}}
+                                            {{-- <td class="projectname">{{ $item->project->projectname }}</td>    --}}
                                             @php
                                                 $hour    = 0;
                                                 $minute  = 0;
 
-                                                $waktu   = $item->work_time;
+                                                $waktu   = $item->duration;
                                                 $parsed  = date_parse($waktu);
                                                 $hour    = $hour + $parsed['hour'];
                                                 $minute  = $minute + $parsed['minute'];
                                             @endphp
-                                            <td hidden class="work_time">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
-                                            <td data-exclude="true" class="tex-center">{{ $hour }}h:{{ $minute }}m</td>
-
-                                            @php
-                                                $hour    = 0;
-                                                $minute  = 0;
-
-                                                $waktu   = $item->billing;
-                                                $parsed  = date_parse($waktu);
-                                                $hour    = $hour + $parsed['hour'];
-                                                $minute  = $minute + $parsed['minute'];
-                                            @endphp
-                                            <td hidden class="billing">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
+                                            <td hidden class="duration">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
                                             <td data-exclude="true" class="text-center">{{ $hour }}h:{{ $minute }}m</td>
-
-                                            <td class="billed">{{ $item->billed }}</td>
-                                            <td class="duedate">{{ $item->duedate }}</td>
-                                            <td hidden class="notes">{{ $item->notes }}</td>
-                                            <td class="text-center" data-exclude="true">
-                                                {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}"> --}}
-                                                <a href="#" class="taskUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_task">
-                                                    <i class="fas fa-edit" style="font-size: 20px;color:#20d4b6"></i>
-                                                </a>
-                                                <a href="{{ url('admin/task/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')">
-                                                    <i class="fas fa-trash-alt" style="font-size: 20px;color:#fb4365"></i>
-                                                </a>
+                                            <td hidden data-exclude="true" class="video text-center">{{ $item->video }}</td>
+                                            <td data-exclude="true" class="text-center">
+                                                <iframe width="150" height="75" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                                </iframe>
                                             </td>
+                                            <td data-exclude="true" class="description text-center">{{ $item->description }}</td>
+                                            <td class="text-center" data-exclude="true">
+                                                <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
+                                                    <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
+                                                <a href="{{ url('admin/task/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
+                                                    <i class="fas fa-trash-alt" style="color: #fb4365"></i></a>
+                                            </td>   
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                    <div class="col-12 d-flex mb-2">
+                                    <div class="col-12 d-flex mb-3">
                                         <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                            {{-- <a href="{{ route('admin/task/new') }}">Add Task</a> --}}
-                                            <a href="#" data-toggle="modal" data-target="#add_task"><i class="fa fa-plus"></i> Create Task</a>
+                                            <a href="#" data-toggle="modal" data-target="#add_video"><i class="fa fa-plus"></i> Add Video</a>
                                         </button>
                                     </div>
                                 </table>
-                            <div class="col-12 d-flex justify-right mt-3 mb-2">
-                                <button id="btn-export" onclick="exportReportToExcel('{{ $data->projectname }}')" class="btn btn-success waves-effect">
-                                    <i class="mdi mdi-file-excel" style="font-size: 20px"></i> Export Task
-                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mt-0 header-title mb-4">Quiz Datatable</h4>
+                                </p>
+                                <table name="video" id="datatable" class="table dt-responsive text-center" 
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size: 14px" data-cols-width="">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="max-width: 5%">No</th>
+                                            <th data-exclude="true" hidden>ID</th>
+                                            <th data-exclude="true" hidden>Topic ID</th>
+                                            <th data-exclude="true" hidden>Question ID</th>
+                                            <th style="max-width: 12%" title="Question">Question</th>
+                                            <th style="max-width: 12%" title="Option" class="text-left">Option</th>
+                                            <th style="max-width: 12%" title="Key">Key</th>
+                                            <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th>
+                                        </tr>    
+                                    </thead>
+
+                                    <tbody>
+                                    @foreach ($questions as $key => $item)
+                                        <tr>
+                                            <td class="no">{{ ++$key }}</td>
+                                            <td data-exclude="true" hidden class="id">{{ $item->id }}</td>
+                                            <td data-exclude="true" hidden class="project_id">{{ $item->id }}</td>
+                                            <td data-exclude="true" hidden class="question_id">{{ $item->id }}</td>
+                                            <td class="question">{{ $item->question }}</td>
+                                            <td class="option text-left">
+                                                @foreach (json_decode($item->option) as $key => $option)
+                                                    {{ $key }}. {{ $option }} <br>
+                                                @endforeach
+                                            </td>
+                                            <td class="result text-center">{{ $item->result }}</td>
+                                            <td class="text-center" data-exclude="true">
+                                                {{-- <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
+                                                    <i class="fas fa-edit" style="color: #0ee7e3"></i></a> --}}
+                                                <a href="{{ url('admin/quiz/detail/'.$item->id) }}" style="color: #fb4365" class="mr-2">
+                                                    <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
+                                                <a href="{{ url('admin/quiz/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
+                                                    <i class="fas fa-trash-alt" style="color: #fb4365"></i></a>
+                                            </td>   
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <div class="col-12 d-flex mb-3">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            <a href="#" data-toggle="modal" data-target="#add_quiz"><i class="fa fa-plus"></i> Add Quiz</a>
+                                        </button>
+                                    </div>
+                                </table>
+                                {{-- <div class="col-12 d-flex justify-right mt-3 mb-2">
+                                    <button id="btn-export" onclick="exportReportToExcel('Team')" class="btn btn-success waves-effect">
+                                        <i class="mdi mdi-file-excel" style="font-size: 20px"></i> Export Task</b>
+                                    </button>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -197,108 +175,63 @@
     </div>
     <!-- content --> 
 
-    <!-- Add Task Modal -->
-    <div id="add_task" class="modal custom-modal fade" role="dialog">
+    <!-- Add Video Modal -->
+    <div id="add_video" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title header-title">Add New Task</h5>
+                    <h5 class="modal-title header-title">Add Video</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin/task/save') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin/video/save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row"> 
-                            <div class="col-sm-12"> 
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">Task Name</label>
-                                    <input required class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Enter Name"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Task Name')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Project</label>
+                        <div class="row">
+                            <div class="col-sm-8"> 
+                                <label>Topic</label>
                                 <select required class="form-control" name="project_id" id="project_id">
-                                    <option selected disabled value=""> -- Select Project --</option>
-                                    {{-- @foreach ($data as $proyek) --}}
-                                    <option value="{{ $data->id }}">{{ $data->projectname }}</option>
-                                    {{-- @endforeach --}}
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>User Assignee</label>
-                                <select required class="form-control" name="user_id" id="user_id">
-                                    <option selected disabled value=""> -- Select User --</option>
-                                    @foreach ($orang as $user )
-                                    @if ($user->role_name != 'Client')
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endif
+                                    <option selected disabled value=""> -- Select Topic --</option>
+                                    @foreach ($project as $proj) 
+                                        <option value={{$proj->id}}>{{$proj->projectname}}</option>
                                     @endforeach
                                 </select>
-                            </div>                            
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label>Task Due Date</label>
-                                    <input required class="form-control date-picker @error('duedate') is-invalid @enderror" type="date" id="duedate" name="duedate" value="{{ old('duedate') }}"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Date')" oninput="setCustomValidity('')">
-                                </div>
                             </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <label>Status</label>
-                                <select required class="form-control" name="status" id="status">
-                                    <option selected disabled value=""> -- Select Status --</option>
-                                        <option value="In Progress">In Progress</option>
-                                        <option value="Wait for Review">Wait for Review</option>
-                                        <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6"> 
+                            <div class="col-sm-3"> 
                                 <div class="form-group">
-                                    <label>Work Durations (hour:minute)</label>
-                                    <input required class="form-control time-picker @error('work_time') is-invalid @enderror" type="time" id="work_time" name="work_time" value="00:00"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Time')" oninput="setCustomValidity('')">
+                                    <label>Durations (hour:minute)</label>
+                                    <input required class="form-control @error('duration') is-invalid @enderror" type="time" id="duration" name="duration" value="00:00" placeholder="Enter Time Worked"
+                                        oninvalid="this.setCustomValidity('Please Enter valid Time <00:00>')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Billable Hours (hour:minute)</label>
-                                    <input class="form-control time-picker @error('billing') is-invalid @enderror" type="time" id="billing" name="billing" value="00:00">
-                                </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Billed Status</label>
-                                    <select required class="form-control" name="billed" id="billed">
-                                        <option selected disabled value=""> -- Billed Status --</option>
-                                            <option value="Billed">Billed</option>
-                                            <option value="Waived">Waived</option>
-                                    </select>
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">https://www.youtube.com/watch?</div>
+                                    </div>
+                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
+                                    oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
+
+                        <div class="row">
                             <div class="col-sm-12"> 
-                                <label for="notes">Notes</label>
-                                <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" value="{{ old('notes') }}" type="text" id="notes" placeholder="Enter notes" cols="30" rows="4"></textarea>
-                                @error('notes')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <br>
+                                    <textarea name="description" id="description" cols="100" rows="3"></textarea>
+                                </div>
                             </div>
                         </div>
-                        <br>
                         <div class="modal-footer">
                             <div class="submit-section">
-                                <button type="submit" class="btn btn-primary submit-btn">Create Task</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Add Video</button>
                             </div>
                         </div>
                     </form>
@@ -306,112 +239,113 @@
             </div>
         </div>
     </div>
-    <!-- Add Task Modal -->
+    <!-- Add Video Modal -->
 
-    <!-- Edit Task Modal -->
-    <div id="edit_task" class="modal custom-modal fade" role="dialog">
+    <!-- Add Quiz Modal -->
+    <div id="add_quiz" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title header-title">Edit Task</h5>
-                    <div class="row">
-                        <div class="col-lg-auto">
-                            <h6 class="header-title"> Timer: <b class="header-title" id="stopwatch">00:00:00</b> </h6>
-                            <button class="btn btn-sm text-primary" onclick="startTimer()" style="background-color: #eee; font-size: 10px">Start</button>
-                            <button class="btn btn-sm text-warning" onclick="pauseTimer()" style="background-color: #eee; font-size: 10px">Pause</button>
-                            <button class="btn btn-sm text-danger" onclick="stopTimer()" style="background-color: #eee; font-size: 10px">Stop</button>
-                        </div>
-                        <div class="col">                    
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
+                    <h5 class="modal-title header-title">Add Quiz</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('admin/task/update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin/quiz/save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input hidden class="col-sm-6 form-control" type="text" name="id" id="id" value="">
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">Task Name</label>
-                                    <input class="form-control" type="text" id="e_name" name="name" value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Project</label>
-                                <select class="form-control" name="project_id" id="project_id">
-                                    {{-- @foreach ($data as $proyek) --}}
-                                    <option value="{{ $data->id }}">{{ $data->projectname }}</option>
-                                    {{-- @endforeach --}}
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>User Assignee</label>
-                                <select class="form-control" name="user_id" id="e_user_id">
-                                    @foreach ($orang as $user )
-                                    @if ($user->role_name != 'Client')
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endif
+                        <div class="row">
+                            <div class="col-sm-9"> 
+                                <label>Topic</label>
+                                <select required class="form-control" name="project_id" id="project_id">
+                                    <option selected disabled value=""> -- Select Topic --</option>
+                                    @foreach ($project as $proj) 
+                                        <option value={{$proj->id}}>{{$proj->projectname}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-4"> 
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-9"> 
                                 <div class="form-group">
-                                    <label>Task Due Date</label>
-                                    <input class="form-control date-picker" type="date" id="e_duedate" name="duedate" value="">
+                                    <label for="question">Question</label>
+                                    <br>
+                                    {{-- <textarea name="question" id="question" cols="100" rows="3"></textarea> --}}
+                                    <input required class="form-control @error('question') is-invalid @enderror" type="text" id="question" name="question" value="{{ old('question') }}" placeholder="write question here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <label>Status</label>
-                                <select class="form-control" name="status" id="e_status">
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Wait for Review">Wait for Review</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Work Durations (hour:minute)</label>
-                                    <input required class="form-control" type="time" id="e_work_time" name="work_time" value="00:00">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group"></div>
+                                <label>Option</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">a</div>
+                                    </div>
+                                    <input required class="form-control @error('opt1') is-invalid @enderror" type="text" id="opt1" name="opt1" value="{{ old('opt1') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">b</div>
+                                    </div>
+                                    <input required class="form-control @error('opt2') is-invalid @enderror" type="text" id="opt2" name="opt2" value="{{ old('opt2') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">c</div>
+                                    </div>
+                                    <input required class="form-control @error('opt3') is-invalid @enderror" type="text" id="opt3" name="opt3" value="{{ old('opt3') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">d</div>
+                                    </div>
+                                    <input required class="form-control @error('opt4') is-invalid @enderror" type="text" id="opt4" name="opt4" value="{{ old('opt4') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">e</div>
+                                    </div>
+                                    <input required class="form-control @error('opt5') is-invalid @enderror" type="text" id="opt5" name="opt5" value="{{ old('opt5') }}" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please enter valid question')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Billable Hours (hour:minute)</label>
-                                    <input required class="form-control" type="time" id="e_billing" name="billing" value="00:00">
+                            <div class="col-sm-3">
+                                <div class="form-group"></div>
+                                <label>Key</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('oresult1') is-invalid @enderror" type="radio" id="result" name="result" value="1" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
                                 </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <label>Billed Status</label>
-                                <select class="form-control" name="billed" id="e_billed">
-                                    <option value="Billed">Billed</option>
-                                    <option value="Waived">Waived</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-12"> 
-                                <label for="notes">Notes</label>
-                                <textarea class="form-control" name="notes" value="" type="text" id="e_notes"  cols="30" rows="4"></textarea>
-                                @error('notes')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="2" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="3" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="4" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input required class="form-control @error('result') is-invalid @enderror" type="radio" id="result" name="result" value="5" placeholder="write text here..."
+                                    oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
+                                </div>
                             </div>
                         </div>
                         <br>
                         <div class="modal-footer">
                             <div class="submit-section">
-                                <button type="submit" class="btn btn-primary submit-btn">Edit Task</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Add Quiz</button>
                             </div>
                         </div>
                     </form>
@@ -419,16 +353,16 @@
             </div>
         </div>
     </div>
-    <!-- Edit Task Modal -->
+    <!-- Add Quiz Modal -->
 
     <script>
         $(document).ready( function() {
             $('table#datatable').DataTable({
-                "searching": true,
-                "paging":true,
+                "searching": false,
+                "paging":false,
                 "ordering":true,
                 "columnDefs":[{
-                    "targets":[5,7,9,10,11,13], 
+                    "targets":[1,11, 4], 
                     "orderable":false,
                 }]
             });

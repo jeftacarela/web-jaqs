@@ -71,7 +71,7 @@ Route::group(['middleware'=>'auth'],function()
     Route::get('admin/project/detail/{id}', [ProjectController::class, 'viewEdit']);
     Route::post('admin/project/update', [ProjectController::class, 'update'])->name('admin/project/update');
     Route::get('admin/project/delete/{id}', [ProjectController::class, 'delete']);
-    Route::get('admin/project/view/{id}', [ProjectController::class, 'viewEach']);
+    Route::get('admin/project/view/{id}', [ProjectController::class, 'viewEach'])->name('admin/project/view');
 
     Route::post('admin/project/show/search', [ProjectController::class, 'searchProject'])->name('admin/project/show/search');
     Route::post('admin/project/view/search', [ProjectController::class, 'searchEachProject'])->name('admin/project/view/search');
@@ -130,7 +130,12 @@ Route::group(['middleware'=>'auth'],function()
     Route::post('member/task/update', [MemberController::class, 'updateTask'])->name('member/task/update');
     Route::get('member/task/delete/{id}', [MemberController::class, 'deleteTask']);
     Route::get('member/project/', [MemberController::class, 'showProject']);
-    Route::get('member/project/view/{id}', [MemberController::class, 'viewProject']);
+    Route::get('member/project/view/{id}', [MemberController::class, 'viewProject'])->name('member/project/view');
+
+    Route::get('member/quiz/{id}', [MemberController::class, 'showQuiz'])->name('member/quiz');
+    Route::get('member/quiz/view/{id}', [MemberController::class, 'viewQuiz'])->name('member/quiz/view');
+    Route::post('member/quiz/submit', [MemberController::class, 'submitQuiz'])->name('member/quiz/submit');
+
     Route::get('member/profile/', [MemberController::class, 'showProfile'])->name('member/profile');
     Route::get('member/profile/detail/{id}', [MemberController::class, 'viewProfile']);
     Route::post('member/profile/update', [MemberController::class, 'updateProfile'])->name('member/update');

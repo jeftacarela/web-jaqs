@@ -18,23 +18,23 @@
                                 <h3 class="greeting">Welcome {{ $id->name }}!</h3>
                             </div>
                         </div>
-                        <div class="row align-items-right">
+                        <div class="row align-items-center">
                             <div class="col">
                                 <div class="float-right d-none d-md-block">                    
-                                    <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light mt-5 mr-2">
+                                    {{-- <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light mt-5 mr-2">
                                         <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_task" style="font-size: 14px">Create a Task</a>
-                                    </button>
+                                    </button> --}}
                                     <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_project" style="font-size: 14px">Add a Project</a>
+                                        <a href="#" class="mr-3 ml-3" data-toggle="modal" data-target="#add_project" style="font-size: 14px">Add New Topic</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-info waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add Video</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_video" style="font-size: 14px">Add New Video</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light mt-5 mr-2">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_quiz" style="font-size: 14px">Add Quiz</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_quiz" style="font-size: 14px">Add New Quiz</a>
                                     </button>
                                     <button type="submit" class="btn btn-sm btn-danger waves-effect waves-light mt-5">
-                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add a User</a>
+                                        <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_user" style="font-size: 14px">Add New User</a>
                                     </button>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
-                                        <h5 class="font-14">Total Active Project(s)</h5>
+                                        <h5 class="font-14">Total Topics</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahProject }}</h4>
                                     </div>
                                 </div>
@@ -105,6 +105,32 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
+                                    <div class="col-lg-10">
+                                        <h5 class="font-14">Total Videos</h5>
+                                        {{-- <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }} <b class="text-muted">({{$h}} : {{$m}})</b></h4> --}}
+
+                                        @if ($h > 1)
+                                            @if ($m > 1)
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minutes</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>    
+                                            @else
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minute</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>                                            
+                                            @endif
+                                        @else
+                                            @if ($m > 1)
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hour</b> {{ $m }} <b class="text-muted font-8">minutes</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>    
+                                            @else
+                                                <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hour</b> {{ $m }} <b class="text-muted font-8">minute</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>                                            
+                                            @endif                                        
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="col-sm-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center p-1">
                                     <div class="col-lg-12">
                                         <h5 class="font-14">Remaining Tasks for Team</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahTask }}</h4>
@@ -112,14 +138,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
+                    </div> --}}
+                    {{-- <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row align-items-center p-1">
                                     <div class="col-lg-10">
                                         <h5 class="font-14">My Remaining Task(s)</h5>
                                         <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahMyTask }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center p-1">
+                                    <div class="col-lg-10">
+                                        <h5 class="font-14">Total Questions</h5>
+                                        <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahQuestion }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +228,29 @@
                 @endforeach --}}
 
                  <div class="row">
-                    <div class="col-xl-6">
+                    @foreach ($showVideos as $item)
+                    <div class="col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="social-box text-center">
+                                    {{-- <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3> --}}
+                                    <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                    </iframe>
+                                    <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5>
+                                    <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p>
+
+                                    {{-- <div class="mt-2 pt-1 mb-2">
+                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                 </div>
+
+                 <div class="row">
+                    <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Your Recent Task Activity</h4>
@@ -210,21 +270,45 @@
 
                             </div>
                         </div>
-                    </div>  
-                    <div class="col-xl-6">
+                    </div>
+                    <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mt-0 header-title mb-4">Recent All Task Activity</h4>
+                                <h4 class="mt-0 header-title mb-4">Recent Questions</h4>
                                 <ol class="activity-feed mb-0 pl-3">
-                                    @foreach ($task as $item)
+                                    @foreach ($questions as $item)
+                                    <li class="feed-item">
+                                        <div class="feed-item-list">
+                                            {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
+                                            <a href="{{ url('admin/quiz/show') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
+                                            <p class="font-15 mt-0 mb-0"><b class="text-warning">{{ $item->projectname }}</b> {{ Str::limit($item->question, 75, '...')}}</p>
+                                            {{-- <p class="font-15 mt-0 mb-0"><b class="text-warning">{{ $item->projectname }}</b> {{ Str::limit($item->description, 75, '...')}}</p> --}}
+                                            {{-- <iframe width="200" height="100" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                            </iframe> --}}
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ol>
+
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mt-0 header-title mb-4">Recent User Activity</h4>
+                                <ol class="activity-feed mb-0 pl-3">
+                                    @foreach ($log as $item)
                                     {{-- @if ($item->user_id == $id->id) --}}
                                     <li class="feed-item">
                                         <div class="feed-item-list">
                                             {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
                                             <a href="{{ url('admin/task/show/') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
-                                            <p class="font-15 mt-0 mb-0">{{ $item->name }}
-                                                <b class="text-warning"> {{ $item->project->projectname }}</b>
-                                                <b class="text-primary"> {{ $item->user->name }}</b>
+                                            <p class="font-15 mt-0 mb-0">{{ $item->subject }}
+                                                <b class="text-warning"> {{ $item->ip }}</b>
+                                                @foreach ($user as $orang)
+                                                    <b class="text-primary"> {{ ($item->user_id == $orang->id ? $orang->name : '') }}</b>
+                                                @endforeach
                                             </p>
                                         </div>
                                     </li>
@@ -258,22 +342,7 @@
                             </div>
                         </div> --}}
 
-                    {{-- <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="social-box text-center">
-                                    <i class="mdi mdi-facebook text-primary h1"></i>
-                                    <h5 class="font-19 mt-3"><span class="text-primary">8.625K</span> New Peoples</h5>
-                                    <p class="text-muted">Your main list is growing</p>
-
-                                    <div class="mt-2 pt-1 mb-2">
-                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
+                       {{-- <div class="card">
                             <div class="card-body">
                                 <div class="social-box text-center">
                                     <i class="mdi mdi-twitter text-info h1"></i>
@@ -305,7 +374,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title header-title">Create New Project</h5>
+                    <h5 class="modal-title header-title">Add New Topic</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -314,14 +383,27 @@
                     <form action="{{ route('admin/project/save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row"> 
-                            <div class="col-sm-8"> 
+                            <div class="col-sm-12"> 
                                 <div class="form-group">
-                                    <label for="projectname" class="col-form-label">Project Name</label>
+                                    <label for="projectname" class="col-form-label">Topic</label>
                                     <input required class="form-control @error('projectname') is-invalid @enderror" type="text" id="projectname" name="projectname" value="{{ old('projectname') }}" placeholder="Enter Project Name"
                                         oninvalid="this.setCustomValidity('Please Enter valid Project Name')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"> 
+                                <div class="form-group">
+                                    <label>Topic Status</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option selected disabled> -- Select Status --</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Not Active">Not Active</option>
+                                            <option value="Top Priority">Top Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="duedate">Due Date</label>
                                     <input required class="form-control @error('duedate') is-invalid @enderror" type="date" id="duedate" name="duedate" value="{{ old('duedate') }}"
@@ -334,73 +416,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
-                            <div class="col-sm-4"> 
-                                <label>Client Name</label>
-                                <select class="form-control" name="client" id="client">
-                                    <option selected disabled> -- Select Client Name --</option>
-                                    @foreach ($user as $orang)
-                                    @if ($orang->role_name == 'Client')
-                                        <option value="{{ $orang->id }}">{{ $orang->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <label>Type of Project</label>
-                                <select class="form-control" name="project_type" id="project_type">
-                                    <option selected disabled> -- Select Type of Project --</option>
-                                        <option value="WordPress">WordPress</option>
-                                        <option value="Laravel">Laravel</option>
-                                        <option value="Others">Others</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4"> 
-                                <div class="form-group">
-                                    <label>Client Status</label>
-                                    <select class="form-control" name="status" id="status">
-                                        <option selected disabled> -- Select Status --</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Not Active">Not Active</option>
-                                            <option value="Top Priority">Top Priority</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Web URL</label>
-                                    <input required class="form-control @error('website_url') is-invalid @enderror" type="url" id="website_url" name="website_url" value="{{ old('website_url') }}" placeholder="Example: https://www.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <div class="form-group">
-                                    <label>Staging URL</label>
-                                    <input required class="form-control @error('staging_url') is-invalid @enderror" type="url" id="staging_url" name="staging_url" value="{{ old('staging_url') }}" placeholder="Example: https://staging.example.com"
-                                        oninvalid="this.setCustomValidity('Please Enter valid Staging URL')" oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="user">Team Member</label>
-                                    <select multiple class="form-control @error('user') is-invalid @enderror" name="user[]" id="user">
-                                        <option selected disabled>Select Team</option>
-                                        @foreach ($user as $orang)
-                                        @if ($orang->role_name == 'Team Member' )
-                                            <option value="{{ $orang->id}}">{{ $orang->name}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="modal-footer">
                             <div class="submit-section">
-                                <button type="submit" class="btn btn-primary submit-btn">Create Project</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Create Topic</button>
                             </div>
                         </div>
                     </form>

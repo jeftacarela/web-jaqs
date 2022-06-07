@@ -10,14 +10,14 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5">
-                    <div class="card card-pages shadow-none mt-4">
+                    <div class="card card-pages shadow-lg p-3 mb-5 bg-dark rounded mt-4">
                         <div class="card-log" style="color: #2c3749">
                             <div class="text-center mt-0 mb-3">
                                 {{-- <h1 style="font-family: Josefin Sans, sans-serif; line-height: 60pt;margin-bottom: 0px; margin: 0px">Cabaretti</h1> --}}
                                 {{-- <h6 style="font-family: Josefin Sans, sans-serif; line-height: 60pt; margin-block-start: 0.83em">Performance Web Design & Development</h6> --}}
                                 {{-- <a href="index.html" class="logo logo-admin"> --}}
                                     {{-- <img src="{{ URL::to('assets/images/logo-light.png') }}" class="mt-3" alt="" height="26"></a> --}}
-                                    <img src="images/cabaretti.png" class="mt-3" width="200" alt=""></a>
+                                    <img src="images/jaqs-light-nobg.png" class="mt-3" width="200" alt=""></a>
                                 {{-- <p class="text-muted w-75 mx-auto mb-4 mt-4">Enter your email address and password to access admin panel.</p> --}}
                             </div>
                             {{-- message --}}
@@ -61,7 +61,7 @@
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
                                     </div>
                                 </div>
-                                <div class="form-group text-center mt-4">
+                                {{-- <div class="form-group text-center mt-4">
                                     <div class="col-12">
                                         <div class="float-left">
                                             <a href="{{ route('forget-password') }}" class="text-muted"><i class="fa fa-lock mr-1"></i> Forgot your password?</a>
@@ -70,7 +70,7 @@
                                             <a href="{{ route('register') }}" class="text-muted">Create an account</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="text-center">
                                     <p class="mt-4 text-muted">Sign in with</p>
                                     <ul class="social-list list-inline mb-2">

@@ -135,7 +135,7 @@
 
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="submit" class="btn btn-success waves-effect waves-light mr-2">Update</button>
-                                                    <button type="reset" class="btn btn-danger waves-effect waves-light"><a href="{{ route('admin/project/show') }}">Back</a></button>
+                                                    <button type="reset" class="btn btn-danger waves-effect waves-light"><a href="{{ route('admin/quiz/show') }}">Back</a></button>
                                                 </div>
                                             </div>
                                         </div>
