@@ -14,7 +14,7 @@ class Project extends Model
         // 'project_type',
         // 'website_url',
         // 'staging_url',
-        // 'status',
+        'status',
         'duedate',
     ];
 

@@ -8,7 +8,7 @@
     <title>Dashboard Home</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
-    <link rel="shortcut icon" href="{{ URL::to('images/cabaretti-sm.png') }}">
+    <link rel="shortcut icon" href="{{ URL::to('images/jaqs-sm.jpeg') }}">
     <link href="{{ URL::to('../plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <!-- DataTables -->
     <link href="{{ URL::to('../plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -45,8 +45,8 @@
                     {{-- <img src="{{ URL::to('assets/images/logo-sm.png') }}" class="logo-sm" alt="" height="24"> --}}
                     
 
-                    <img src="{{ URL::to('images/jaqs-sm.jpeg') }}" class="logo-lg mt-2" alt="" height="50">
-                    <img src="{{ URL::to('images/jaqs-sm.jpeg') }}" class="logo-sm" alt="" width="50">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-lg mt-2" alt="" height="50">
+                    <img src="{{ URL::to('images/jaqs-light-nobg.png') }}" class="logo-sm" alt="" width="50">
                 </a>
             </div>
             <!-- Search input -->

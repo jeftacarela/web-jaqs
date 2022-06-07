@@ -253,11 +253,9 @@
                                     <label>Topic Status</label>
                                     <select class="form-control" name="status" id="status">
                                         {{-- <option selected disabled>Status</option> --}}
-                                        @foreach ($data as $item)
-                                            <option value="Active" {{ $item->status == 'Active' ? 'selected' : 0 }}>Active</option>
-                                            <option value="Not Active" {{ $item->status == 'Not Active' ? 'selected' : 0 }}>Not Active</option>
-                                            <option value="Top Priority" {{ $item->status == 'Top Priority' ? 'selected' : 0 }}>Top Priority</option>
-                                        @endforeach
+                                        <option value="Active">Active</option>
+                                        <option value="Not Active">Not Active</option>
+                                        <option value="Top Priority">Top Priority</option>
                                     </select>
                                 </div>
                             </div>

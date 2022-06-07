@@ -36,10 +36,10 @@
                     </a>
                 </li> --}}
                 <li>
-                    <a href="#" class="waves-effect"><i class="dripicons-document"></i><span>Projects<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                    <a href="#" class="waves-effect"><i class="dripicons-list"></i><span>Topics<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
                     <ul class="submenu">
                         <!-- Navitem from AppServiceProvider.php -->
-                        <li><a href="{{ route('admin/project/show') }}">All project</a></li>
+                        <li><a href="{{ route('admin/project/show') }}">All Topic</a></li>
                         @foreach ($navitem as $item)
                             <li><a href="{{ route('admin/project/view', [$item->id]) }}">{{ $item->projectname }}</a></li>
                         @endforeach

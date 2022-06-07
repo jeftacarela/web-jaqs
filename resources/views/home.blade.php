@@ -110,7 +110,7 @@
                                         {{-- <h6 class="text-danger header-title pt-1 mb-0" style="font-size: 16px">{{ $jumlahVideo }} <b class="text-muted">({{$h}} : {{$m}})</b></h4> --}}
 
                                         @if ($h > 1)
-                                            @if ($minute > 1)
+                                            @if ($m > 1)
                                                 <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minutes</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>    
                                             @else
                                                 <h6 class="text-primary pt-1 mb-0">{{ $h }} <b class="text-muted font-2">hours</b> {{ $m }} <b class="text-muted font-8">minute</b> ( <b class="text-danger"> {{ $jumlahVideo }}</b> )</h6>                                            

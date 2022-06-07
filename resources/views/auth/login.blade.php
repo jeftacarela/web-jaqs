@@ -61,7 +61,7 @@
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
                                     </div>
                                 </div>
-                                <div class="form-group text-center mt-4">
+                                {{-- <div class="form-group text-center mt-4">
                                     <div class="col-12">
                                         <div class="float-left">
                                             <a href="{{ route('forget-password') }}" class="text-muted"><i class="fa fa-lock mr-1"></i> Forgot your password?</a>
@@ -70,7 +70,7 @@
                                             <a href="{{ route('register') }}" class="text-muted">Create an account</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="text-center">
                                     <p class="mt-4 text-muted">Sign in with</p>
                                     <ul class="social-list list-inline mb-2">

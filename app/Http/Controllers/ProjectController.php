@@ -130,31 +130,23 @@ class ProjectController extends Controller
             $id = $request->id;
             $projectname = $request->projectname;
             $duedate = $request->duedate;
-            // $user = $request->user;
-            $project_type = $request->project_type;
             $status = $request->status;
-            $website_url = $request->website_url;
-            $staging_url = $request->staging_url;        
+            // $user = $request->user;
 
             $data = Project::findorfail($id);
 
             $update = [
                 // 'id' => $id,
+                'status'      => $status,
                 'projectname' => $projectname,
-                'duedate' => $duedate,
-                'project_type'  => $project_type,
-                'status'        => $status,
-                'website_url'   => $website_url,
-                'staging_url'   => $staging_url,
+                'duedate'     => $duedate,
             ];
-            $data->user()->sync($request->client);
-            $data->user()->attach($request->user);
+            // $data->user()->sync($request->client);
+            // $data->user()->attach($request->user);
 
+            // dd($update);
             $data->update($update);
 
-            // Project::where('id',$request->id)->update($update);
-
-            // dd($data);
             Toastr::success('Data Updated','Success');
             return redirect()->back();
         } else {

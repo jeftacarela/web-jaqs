@@ -16,15 +16,20 @@
                         <i class="dripicons-meter"></i><span class="badge badge-info badge-pill float-right"></span> <span> Dashboard </span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ url('member/task/') }}" class="waves-effect">
                         <i class="dripicons-to-do"></i><span class="badge badge-info badge-pill float-right"></span> <span> Task & Report </span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
-                    <a href="{{ url('member/project/') }}" class="waves-effect">
-                        <i class="dripicons-list"></i><span class="badge badge-info badge-pill float-right"></span> <span> All Projects </span>
-                    </a>
+                    <a href="#" class="waves-effect"><i class="dripicons-list"></i><span>Topics<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                    <ul class="submenu">
+                        <!-- Navitem from AppServiceProvider.php -->
+                        <li><a href="{{ url('member/project/') }}">All Topic</a></li>
+                        @foreach ($navitem as $item)
+                            <li><a href="{{ route('member/project/view', [$item->id]) }}">{{ $item->projectname }}</a></li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ url('member/profile/') }}" class="waves-effect">
