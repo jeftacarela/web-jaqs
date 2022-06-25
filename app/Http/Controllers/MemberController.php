@@ -31,6 +31,8 @@ class MemberController extends Controller
             $weekEndDate    = $dt->endOfWeek()->format('D, d M Y');
             $project        = Project::latest()->get();
             $task           = Task::latest()->get();
+            $videos         = Video::latest()->get();
+            $showVideos     = DB::table('videos')->orderby('videos.created_at', 'desc')->leftJoin('projects', 'projects.id', '=', 'project_id')->take(4)->get();
             // $task = DB::table('tasks')->where('user_id', Auth::user()->id);
             // $taskhour       = DB::table('tasks')->where('user_id', Auth::user()->id)->sum('work_time');
             $weekTaskMinutes = DB::table('tasks')
@@ -63,10 +65,10 @@ class MemberController extends Controller
             $jumlahProject  = DB::table('projects')->where('status','!=','Not Active')->get();
                 
             return view('member.home', compact(
-                'id', 'date','project', 
+                'id', 'date','project', 'videos',
                 'user', 'task', 'weekTaskMinutes',
                 'weekStartDate', 'weekEndDate', 
-                'minute', 'hour',
+                'minute', 'hour', 'showVideos',
                 'jumlahTask', 'jumlahProject'
             ));
         } else {
@@ -213,7 +215,8 @@ class MemberController extends Controller
     {
         $user = Auth::user();
         $project = Project::findorfail($id);
-        return view('member.projects.viewProject', compact('project', 'user'));
+        $videos = Video::where('project_id', $id)->orderby('created_at', 'asc')->get();
+        return view('member.projects.viewProject', compact('project', 'user', 'videos'));
     }
 
     public function showQuiz($id)

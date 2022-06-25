@@ -20,19 +20,6 @@
                             <h3 class="greeting">Welcome {{ $id->name }}!</h3>
                         </div>
                     </div>
-                    <div class="col">  
-                        <div class="float-right d-none d-md-block">
-                            <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light ml-5 mt-5">
-                                <a href="#" class="mr-4 ml-4" data-toggle="modal" data-target="#add_task" style="font-size: 14px">Create a Task</a>
-                            </button>
-                        </div>
-                    </div>
-                    {{-- <div class="col-md-4">
-                        <div class="float-right d-none d-md-block app-datepicker">
-                                <input type="text" class="form-control" data-date-format="MM dd, yyyy" readonly="readonly" id="datepicker">
-                                <i class="mdi mdi-chevron-down mdi-drop"></i>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
             {{-- message --}}
@@ -190,6 +177,52 @@
             @endif
             @endforeach --}}
 
+            @foreach ($project as $proj)
+                <h5>
+                    <a href="{{ url('member/project/view/'.$proj->id) }}" class="text-dark">{{ $proj->projectname }}</a>
+                    <i class="dripicons-chevron-right text-right" style="font-size: 15px;color:#000000"></i>
+                </h5>
+                <div class="row">
+                    @foreach ($videos as $video)
+                        @if ($video->project_id == $proj->id)
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-12">
+                                                <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                                <h6 class="text-dark pt-2 mb-3" style="font-size: 16px">{{ Str::limit($video->description, 20, ' ...')}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endforeach
+
+            {{-- <div class="row">
+                @foreach ($showVideos as $item)
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="social-box text-center">
+                                <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3>
+                                <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
+                                <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5>
+                                <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p>
+
+                                <div class="mt-2 pt-1 mb-2">
+                                    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+             </div> --}}
+
              <div class="row">
                 <div class="col-xl-6">
                     <div class="card">
@@ -216,7 +249,7 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title mb-4">Your Recent Task Activity</h4>
+                            <h4 class="mt-0 header-title mb-4">Your Recent Activity</h4>
                             <ol class="activity-feed mb-0 pl-3">
                                 @foreach ($task as $item)
                                 @if ($item->user_id == $id->id)

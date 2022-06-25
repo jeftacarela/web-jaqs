@@ -20,7 +20,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('member') }}">Team Member</a></li>
                                     <li class="breadcrumb-item"><a href="{{ url('member/project/') }}">Project</a></li>
-                                    <li class="breadcrumb-item"><a class="active" href="#">Detail</a></li>
+                                    <li class="breadcrumb-item"><a class="active" href="#">{{ $project->projectname }}</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -35,69 +35,21 @@
                         </div>
                     @endforeach
                 @endif
+                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="mt-2 ml-3 header-title">Project {{ $project->projectname }}</h4>
+                            <div class="card-body text-center">
+                                <h4 class="mt-2 ml-3 header-title text-left">Project {{ $project->projectname }}</h4>
                                 </p>
-                                <table id="datatable" class="table table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <caption class="header-title">{{ $project->projectname }} Data Table</caption>
-                                    <thead>
-                                        <tr>
-                                            <th hidden data-exclude="true">ID</th>
-                                            <th style="max-width: 5%">No</th>
-                                            <th class="text-center" style="max-width: 20%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Task">Task</th>
-                                            <th class="text-center" style="max-width: 10%" data-bs-toggle="tooltip" data-bs-placement="top" title="Status for Task">Status</th>
-                                            <th class="text-center" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Durations (hour:minute)">Duration</th>
-                                            <th hidden data-exclude="true">Duration</th>
-                                            <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Dateline for each Task">Due Date</th>
-                                            <th class="text-center" style="max-width: 20%" data-bs-toggle="tooltip" data-bs-placement="top" title="Notes for Task">Notes</th>
-                                            <th class="text-center" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Action for each Task" data-exclude="true">Modify</th>
-                                        </tr>    
-                                    </thead>
-
-                                    <tbody>
-                                    @foreach ($project->task as $key => $item)
-                                    @if ($item->user_id == $user->id)
-                                        <tr>
-                                            <td hidden class="id">{{ $item->id }}</td>
-                                            <td class="no">{{ ++$key }}</td>
-                                            <td class="name">{{ $item->name }}</td>
-                                            <td class="status text-center">{{ $item->status }}</td>
-
-                                            @php
-                                                $hour    = 0;
-                                                $minute  = 0;
-
-                                                $waktu   = $item->work_time;
-                                                $parsed  = date_parse($waktu);
-                                                $hour    = $hour + $parsed['hour'];
-                                                $minute  = $minute + $parsed['minute'];
-                                            @endphp
-                                            <td hidden class="work_time">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
-                                            <td class="text-center">{{ $hour }}h:{{ $minute }}m</td>
-                                            
-                                            <td class="duedate">{{ $item->duedate }}</td>
-                                            <td class="notes"><p>{{ $item->notes }}</p></td>
-                                            <td class="text-center">
-                                                <a href="#" class="taskUpdate mr-3" data-toggle="modal" data-id="'$item->id'" data-target="#edit_task">
-                                                    <i class="fas fa-edit" style="font-size: 15px;color:#20d4b6"></i>
-                                                </a>  
-                                                <a href="{{ url('member/task/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')">
-                                                    <i class="fas fa-trash-alt" style="font-size: 15px;color:#fb4365"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                    @endforeach
-                                    </tbody>
-                                    <div class="col-12 d-flex mb-3">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                            <a href="#" data-toggle="modal" data-target="#add_task"><i class="fa fa-plus mr-1" style="font-size: 10px"></i> Add Task</a>
-                                        </button>
-                                    </div>
-                                </table>
+                                @foreach ($videos as $video)
+                                    <iframe width="720" height="540" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                    <h6>{{ $video->description }}</h6>
+                                @endforeach
+                                
+                                <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-2">
+                                    <a href="{{ url('member/quiz/'.$project->id)}}" style="font-size: 16px">Quiz</a>
+                                </button>
                             </div>
                         </div>
                     </div>

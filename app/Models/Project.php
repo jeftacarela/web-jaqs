@@ -35,9 +35,9 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function video()
+    public function videos()
     {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Video::class, 'id', 'project_id');
     }
 
     public function question()

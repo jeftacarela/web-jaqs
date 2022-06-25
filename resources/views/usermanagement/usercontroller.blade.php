@@ -146,7 +146,6 @@
                                     <option selected disabled value=""> -- Select Role --</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Team Member">Team Member</option>
-                                        <option value="Client">Client</option>
                                 </select>
                             </div>
                         </div>
