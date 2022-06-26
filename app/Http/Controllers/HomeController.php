@@ -46,6 +46,7 @@ class HomeController extends Controller
             $videos = DB::table('videos')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
             $jumlahVideo     = $videos->count();
             $showVideos = DB::table('videos')->orderby('videos.created_at', 'desc')->leftJoin('projects', 'projects.id', '=', 'project_id')->take(4)->get();
+
             $time = [];
             foreach ($videos as $key => $value) {
                 array_push($time, $value->duration);

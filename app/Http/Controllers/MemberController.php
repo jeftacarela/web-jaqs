@@ -317,6 +317,76 @@ class MemberController extends Controller
         }
     }
 
+    public function showQuiz($id)
+    {
+        if (Gate::denies('isClient')) {      
+            $quiz_id = $id;      
+            $user = Auth::user();
+            return view('member.quiz.quiz_landing_page', compact('user', 'quiz_id'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
+            return redirect()->back();
+        }
+    }
+
+    public function viewQuiz($id)
+    {
+        if (Gate::denies('isClient')) {      
+            $quiz_id = $id;      
+            $user = Auth::user();
+            $project = Project::where('id', $id)->first();
+            $questions = Question::where('project_id', $quiz_id)->get();
+            // dd($questions);
+            return view('member.quiz.quiz_page', compact('user', 'quiz_id', 'questions', 'project'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
+            return redirect()->back();
+        }
+    }
+
+    // saving data
+    public function submitQuiz(Request $request)
+    {
+        if (Gate::denies('isClient')) {
+            // dd($request);
+            $request->validate([
+                'question'      => 'required|string|max:255',
+                'project_id'    => 'required|numeric',
+                'opt1'          => 'required|string|max:255',
+                'opt2'          => 'required|string|max:255',
+                'opt3'          => 'required|string|max:255',
+                'opt4'          => 'required|string|max:255',
+                'opt5'          => 'required|string|max:255',
+                'result'        => 'required'
+            ]);
+            
+            $collectOption = [];
+            $collectOption = array(
+                1 => $request->opt1,
+                2 => $request->opt2,
+                3 => $request->opt3,
+                4 => $request->opt4,
+                5 => $request->opt5,
+            );
+            $option = json_encode($collectOption);
+
+            $question = new Question();
+            $question->question     = $request->question;
+            $question->project_id   = $request->project_id;
+            $question->option       = $option;
+            $question->result       = $request->result;
+
+            $question->save();
+
+            Toastr::success('Data Added', 'Success');
+            // return redirect()->route('admin/task/show');
+            return redirect()->back();
+        } else {
+            Toastr::error('ADMIN ONLY');
+            return redirect()->back();
+        }
+    }
+
     public function showProfile()
     {
         if (Gate::denies('isClient')) {            

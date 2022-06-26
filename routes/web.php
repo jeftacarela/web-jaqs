@@ -134,6 +134,7 @@ Route::group(['middleware'=>'auth'],function()
     Route::get('member/task/delete/{id}', [MemberController::class, 'deleteTask']);
     Route::get('member/project/', [MemberController::class, 'showProject']);
     Route::get('member/project/view/{id}', [MemberController::class, 'viewProject'])->name('member/project/view');
+  
     Route::get('member/result/', [MemberController::class, 'showResult']);
 
     Route::get('member/quiz/{id}', [MemberController::class, 'showQuiz'])->name('member/quiz');
