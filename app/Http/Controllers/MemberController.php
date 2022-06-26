@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\LogActivity;
 use App\Models\Project;
 use App\Models\Question;
+use App\Models\Result;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Video;
@@ -233,7 +234,7 @@ class MemberController extends Controller
 
     public function viewQuiz($id)
     {
-        if (Gate::denies('isClient')) {      
+        if (Gate::denies('isClient')) { 
             $quiz_id = $id;      
             $user = Auth::user();
             $project = Project::where('id', $id)->first();
@@ -249,40 +250,48 @@ class MemberController extends Controller
     // saving data
     public function submitQuiz(Request $request)
     {
+        // dd($request);
         if (Gate::denies('isClient')) {
             // dd($request);
+            $quizzes = Question::where('project_id', $request->quiz_id)->get();
+
+            $trueAnswer = 0;
+            $counter = 0;
+            $answer = [];
+            
+            foreach ($quizzes as $key => $quiz) {
+                $temp = 'opt-'.$quiz->id;
+
+                // store the quiz answer
+                $answer[$quiz->id] = $request->$temp;
+
+                // store the number of true answer
+                if ($request->$temp == $quiz->result) {
+                    $trueAnswer += 1;
+                }
+                $counter += 1;
+            }
+
+            // calculate as percentage
+            $score = ($trueAnswer/$counter)*100;
+            // dd(json_encode($answer));
+
             $request->validate([
-                'question'      => 'required|string|max:255',
-                'project_id'    => 'required|numeric',
-                'opt1'          => 'required|string|max:255',
-                'opt2'          => 'required|string|max:255',
-                'opt3'          => 'required|string|max:255',
-                'opt4'          => 'required|string|max:255',
-                'opt5'          => 'required|string|max:255',
-                'result'        => 'required'
+                'quiz_id'        => 'required|numeric'
             ]);
             
-            $collectOption = [];
-            $collectOption = array(
-                1 => $request->opt1,
-                2 => $request->opt2,
-                3 => $request->opt3,
-                4 => $request->opt4,
-                5 => $request->opt5,
-            );
-            $option = json_encode($collectOption);
 
-            $question = new Question();
-            $question->question     = $request->question;
-            $question->project_id   = $request->project_id;
-            $question->option       = $option;
-            $question->result       = $request->result;
+            $result = new Result();
+            $result->user_id    = auth()->user()->id;
+            $result->project_id = $request->quiz_id;
+            $result->answer     = json_encode($answer);
+            $result->score      = $score;
 
-            $question->save();
+            $result->save();
 
-            Toastr::success('Data Added', 'Success');
-            // return redirect()->route('admin/task/show');
-            return redirect()->back();
+            Toastr::success('Quiz Submitted', 'Success');
+            return redirect()->route('member');
+            // return redirect()->back();
         } else {
             Toastr::error('ADMIN ONLY');
             return redirect()->back();
