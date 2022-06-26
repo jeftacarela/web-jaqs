@@ -17,8 +17,8 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('project_id');
-            $table->foreignId('question_id');
-            $table->foreignId('option_id');
+            $table->json('answer');
+            $table->integer('score');
             $table->timestamps();
         });
     }

@@ -103,11 +103,11 @@
                                         </button>
                                     </div>
                                 </table>
-                            <div class="col-12 d-flex justify-right mt-3 mb-2">
+                            {{-- <div class="col-12 d-flex justify-right mt-3 mb-2">
                                 <button id="btn-export" onclick="exportReportToExcel('User')" class="btn btn-success waves-effect mt-2">
                                     <i class="mdi mdi-file-excel" style="font-size: 20px"></i> Export Task</b>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!-- end col -->
@@ -146,7 +146,6 @@
                                     <option selected disabled value=""> -- Select Role --</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Team Member">Team Member</option>
-                                        <option value="Client">Client</option>
                                 </select>
                             </div>
                         </div>

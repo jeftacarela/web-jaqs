@@ -79,8 +79,8 @@
                                         {{-- <a href="{{ url('member/project/view/'.$item->id) }}" class="text-primary">{{ $item->projectname }}</a> --}}
                                         @foreach ($video as $key => $vid)
                                             @if ($vid->project_id == $item->id)
-                                            <iframe width="320" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
-                                            <h6 class="text-secondary ml-2 mb-0" style="font-size: 12px">{{ Str::limit($vid->description, 75, ' ...')}}</h6><br>
+                                                <iframe width="210" height="120" src="https://www.youtube.com/embed/{{ $vid->video }}"></iframe>
+                                                <h6 class="text-secondary ml-2 mb-0" style="font-size: 12px">{{ Str::limit($vid->description, 75, ' ...')}}</h6><br>
                                             @endif
                                         @endforeach
                                     </div>

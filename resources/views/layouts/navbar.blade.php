@@ -56,6 +56,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin/result') }}" class="waves-effect">
+                        <i class="dripicons-document"></i><span class="badge badge-info badge-pill float-right"></span><span>Result</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('user/management') }}" class="waves-effect">
                         <i class="dripicons-user-group"></i><span class="badge badge-info badge-pill float-right"></span><span>Users</span>
                     </a>

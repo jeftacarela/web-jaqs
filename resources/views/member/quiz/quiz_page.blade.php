@@ -39,14 +39,15 @@
                                                             <div class="form-group"></div>
                                                             <label style="color: #ffffff">Key</label>
                                                             @foreach (json_decode($question->option) as $key => $option)
-                                                            <div class="input-group mb-2 mr-sm-2">
-                                                                <input required class="form-control @error('oresult1') is-invalid @enderror" type="radio" id="result" name="{{ $question->question }}" value="{{ $key }}" placeholder="write text here..."
+                                                            <div class="input-group mb-2 mr-sm-2">{{$key}}
+                                                                <input required class="form-control @error('oresult1') is-invalid @enderror" type="radio" id="result" name="opt-{{ $question->id }}" value="{{ $key }}" placeholder="write text here..."
                                                                 oninvalid="this.setCustomValidity('Please Choose One')" oninput="setCustomValidity('')">
                                                             </div>
                                                             @endforeach
                                                         </div>
                                                     @endforeach
                                                 </div>
+                                                <div><input hidden type="text" name="quiz_id" value="{{ $quiz_id }}"></div>
                                                 <br>
                                                 <div class="modal-footer">
                                                     <div class="submit-section">

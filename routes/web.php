@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\VideoController;
 
@@ -101,6 +102,8 @@ Route::group(['middleware'=>'auth'],function()
     Route::post('admin/quiz/update', [QuizController::class, 'update'])->name('admin/quiz/update');
     Route::get('admin/quiz/delete/{id}', [QuizController::class, 'delete']);
 
+    Route::get('admin/result/', [ResultController::class, 'showResult'])->name('admin/result');
+
     // ----------------------------- Profile -----------------------------//
     Route::get('admin/profile/', [UserManagementController::class, 'showProfile'])->name('admin/profile');
     Route::get('admin/profile/detail/{id}', [UserManagementController::class, 'viewProfile']);
@@ -131,6 +134,8 @@ Route::group(['middleware'=>'auth'],function()
     Route::get('member/task/delete/{id}', [MemberController::class, 'deleteTask']);
     Route::get('member/project/', [MemberController::class, 'showProject']);
     Route::get('member/project/view/{id}', [MemberController::class, 'viewProject'])->name('member/project/view');
+  
+    Route::get('member/result/', [MemberController::class, 'showResult']);
 
     Route::get('member/quiz/{id}', [MemberController::class, 'showQuiz'])->name('member/quiz');
     Route::get('member/quiz/view/{id}', [MemberController::class, 'viewQuiz'])->name('member/quiz/view');

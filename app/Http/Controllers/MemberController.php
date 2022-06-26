@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\LogActivity;
 use App\Models\Project;
 use App\Models\Question;
+use App\Models\Result;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Video;
@@ -31,6 +32,12 @@ class MemberController extends Controller
             $weekEndDate    = $dt->endOfWeek()->format('D, d M Y');
             $project        = Project::latest()->get();
             $task           = Task::latest()->get();
+            $videos         = Video::latest()->get();
+            $results        = Result::where('user_id', auth()->user()->id)->latest('results.created_at')
+                ->leftJoin('projects', 'projects.id','=', 'project_id')
+                ->get();
+                // dd($results);
+            $showVideos     = DB::table('videos')->orderby('videos.created_at', 'desc')->leftJoin('projects', 'projects.id', '=', 'project_id')->take(4)->get();
             // $task = DB::table('tasks')->where('user_id', Auth::user()->id);
             // $taskhour       = DB::table('tasks')->where('user_id', Auth::user()->id)->sum('work_time');
             $weekTaskMinutes = DB::table('tasks')
@@ -63,10 +70,10 @@ class MemberController extends Controller
             $jumlahProject  = DB::table('projects')->where('status','!=','Not Active')->get();
                 
             return view('member.home', compact(
-                'id', 'date','project', 
+                'id', 'date','project', 'videos', 'results',
                 'user', 'task', 'weekTaskMinutes',
                 'weekStartDate', 'weekEndDate', 
-                'minute', 'hour',
+                'minute', 'hour', 'showVideos',
                 'jumlahTask', 'jumlahProject'
             ));
         } else {
@@ -213,7 +220,101 @@ class MemberController extends Controller
     {
         $user = Auth::user();
         $project = Project::findorfail($id);
-        return view('member.projects.viewProject', compact('project', 'user'));
+        $videos = Video::where('project_id', $id)->orderby('created_at', 'asc')->get();
+        return view('member.projects.viewProject', compact('project', 'user', 'videos'));
+    }
+
+    public function showQuiz($id)
+    {
+        if (Gate::denies('isClient')) {      
+            $quiz_id = $id;      
+            $user = Auth::user();
+            return view('member.quiz.quiz_landing_page', compact('user', 'quiz_id'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
+            return redirect()->back();
+        }
+    }
+
+    public function viewQuiz($id)
+    {
+        if (Gate::denies('isClient')) { 
+            $quiz_id = $id;      
+            $user = Auth::user();
+            $project = Project::where('id', $id)->first();
+            $questions = Question::where('project_id', $quiz_id)->get();
+            // dd($questions);
+            return view('member.quiz.quiz_page', compact('user', 'quiz_id', 'questions', 'project'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
+            return redirect()->back();
+        }
+    }
+
+    // saving data
+    public function submitQuiz(Request $request)
+    {
+        // dd($request);
+        if (Gate::denies('isClient')) {
+            // dd($request);
+            $quizzes = Question::where('project_id', $request->quiz_id)->get();
+
+            $trueAnswer = 0;
+            $counter = 0;
+            $answer = [];
+            
+            foreach ($quizzes as $key => $quiz) {
+                $temp = 'opt-'.$quiz->id;
+
+                // store the quiz answer
+                $answer[$quiz->id] = $request->$temp;
+
+                // store the number of true answer
+                if ($request->$temp == $quiz->result) {
+                    $trueAnswer += 1;
+                }
+                $counter += 1;
+            }
+
+            // calculate as percentage
+            $score = ($trueAnswer/$counter)*100;
+            // dd(json_encode($answer));
+
+            $request->validate([
+                'quiz_id'        => 'required|numeric'
+            ]);
+            
+
+            $result = new Result();
+            $result->user_id    = auth()->user()->id;
+            $result->project_id = $request->quiz_id;
+            $result->answer     = json_encode($answer);
+            $result->score      = $score;
+
+            $result->save();
+
+            Toastr::success('Quiz Submitted', 'Success');
+            return redirect()->route('member');
+            // return redirect()->back();
+        } else {
+            Toastr::error('ADMIN ONLY');
+            return redirect()->back();
+        }
+    }
+
+    public function showResult()
+    {
+        if (Gate::denies('isClient')) {            
+            // $results = Result::where('user_id', auth()->user()->id)->get();
+            $results = DB::table('results')->where('user_id', auth()->user()->id)
+                ->leftJoin('projects', 'projects.id', '=', 'results.project_id')
+                ->get();
+            $projects = Project::all();
+            return view('member.results.showResult', compact('results', 'projects'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
+            return redirect()->back();
+        }
     }
 
     public function showQuiz($id)

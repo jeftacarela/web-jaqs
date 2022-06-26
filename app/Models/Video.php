@@ -11,8 +11,8 @@ class Video extends Model
 
     protected $guarded=['id'];
 
-    public function project()
+    public function projects()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project::class, 'id', 'project_id');
     }
 }
