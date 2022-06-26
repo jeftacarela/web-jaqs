@@ -11,9 +11,6 @@ class Project extends Model
 
     protected $fillable = [
         'projectname',
-        // 'project_type',
-        // 'website_url',
-        // 'staging_url',
         'status',
         'duedate',
     ];
@@ -45,10 +42,10 @@ class Project extends Model
         return $this->hasMany(Question::class);
     }
 
-    // public function option()
-    // {
-    //     return $this->hasMany(Option::class);
-    // }
+    public function results()
+    {
+        return $this->hasMany(Result::class, 'id', 'project_id');
+    }
 
     public function invoice()
     {

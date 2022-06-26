@@ -33,6 +33,10 @@ class MemberController extends Controller
             $project        = Project::latest()->get();
             $task           = Task::latest()->get();
             $videos         = Video::latest()->get();
+            $results        = Result::where('user_id', auth()->user()->id)->latest('results.created_at')
+                ->leftJoin('projects', 'projects.id','=', 'project_id')
+                ->get();
+                // dd($results);
             $showVideos     = DB::table('videos')->orderby('videos.created_at', 'desc')->leftJoin('projects', 'projects.id', '=', 'project_id')->take(4)->get();
             // $task = DB::table('tasks')->where('user_id', Auth::user()->id);
             // $taskhour       = DB::table('tasks')->where('user_id', Auth::user()->id)->sum('work_time');
@@ -66,7 +70,7 @@ class MemberController extends Controller
             $jumlahProject  = DB::table('projects')->where('status','!=','Not Active')->get();
                 
             return view('member.home', compact(
-                'id', 'date','project', 'videos',
+                'id', 'date','project', 'videos', 'results',
                 'user', 'task', 'weekTaskMinutes',
                 'weekStartDate', 'weekEndDate', 
                 'minute', 'hour', 'showVideos',
@@ -294,6 +298,21 @@ class MemberController extends Controller
             // return redirect()->back();
         } else {
             Toastr::error('ADMIN ONLY');
+            return redirect()->back();
+        }
+    }
+
+    public function showResult()
+    {
+        if (Gate::denies('isClient')) {            
+            // $results = Result::where('user_id', auth()->user()->id)->get();
+            $results = DB::table('results')->where('user_id', auth()->user()->id)
+                ->leftJoin('projects', 'projects.id', '=', 'results.project_id')
+                ->get();
+            $projects = Project::all();
+            return view('member.results.showResult', compact('results', 'projects'));
+        } else {
+            Toastr::error('Not for Client','MEMBER PAGE');
             return redirect()->back();
         }
     }

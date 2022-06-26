@@ -32,6 +32,11 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="{{ url('member/result/') }}" class="waves-effect">
+                        <i class="dripicons-document"></i><span class="badge badge-info badge-pill float-right"></span> <span> Result </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('member/profile/') }}" class="waves-effect">
                         <i class="dripicons-user"></i><span class="badge badge-info badge-pill float-right"></span> <span> My Profile </span>
                     </a>

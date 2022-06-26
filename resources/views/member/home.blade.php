@@ -227,19 +227,15 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title mb-4">Today Activity</h4>
+                            <h4 class="mt-0 header-title mb-4">To-do List</h4>
                             <ol class="activity-feed mb-0 pl-3">
-                                @foreach ($task as $item)
-                                @if ($item->user_id == $id->id)
-                                    @if ($item->created_at->format('D, d M Y') == $date)
+                                @foreach ($project as $item)
                                     <li class="feed-item">
                                         <div class="feed-item-list">
-                                            <a href="{{ url('member/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at->format('D, d M Y H:i') }}</a>
-                                            <p class="font-15 mt-0 mb-0">{{ $item->name }}<b class="text-warning"> {{ $item->project->projectname }}</b></p>
+                                            Created at <a href="{{ url('member/project/view/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at->format('D, d M Y H:i') }}</a>
+                                            <p class="font-15 mt-0 mb-0"><b class="text-warning"> {{ $item->projectname }}</b></p>
                                         </div>
                                     </li>
-                                    @endif
-                                @endif
                                 @endforeach
                             </ol>
 
@@ -249,17 +245,15 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title mb-4">Your Recent Activity</h4>
+                            <h4 class="mt-0 header-title mb-4">Your Activity</h4>
                             <ol class="activity-feed mb-0 pl-3">
-                                @foreach ($task as $item)
-                                @if ($item->user_id == $id->id)
+                                @foreach ($results as $result)
                                 <li class="feed-item">
                                     <div class="feed-item-list">
-                                        <a href="{{ url('member/project/view/'.$item->project_id) }}" class="text-muted mb-1">{{ $item->created_at->format('D, d M Y H:i') }}</a>
-                                        <p class="font-15 mt-0 mb-0">{{ $item->name }}<b class="text-warning"> {{ $item->project->projectname }}</b></p>
+                                        <a href="#" class="text-muted mb-1">{{ $result->created_at->format('D, d M Y H:i') }}</a>
+                                        <p class="font-15 mt-0 mb-0">{{ $result->projectname }}: <b class="text-warning"> {{ $result->score }} %</b></p>
                                     </div>
                                 </li>
-                                @endif
                                 @endforeach
                             </ol>
                         </div>
