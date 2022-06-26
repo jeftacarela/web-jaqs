@@ -74,7 +74,7 @@ class HomeController extends Controller
              
             // dd($h, $m, $s);
 
-            $log = UserLogTable::latest()->where('subject', '!=', 'logout success')->get();
+            $log = UserLogTable::latest()->where('subject', '!=', 'logout success')->take(10)->get();
             // dd($log);
 
             // questions

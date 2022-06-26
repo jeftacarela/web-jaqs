@@ -123,8 +123,8 @@
                                         <tr>
                                             <td class="no">{{ ++$key }}</td>
                                             <td data-exclude="true" hidden class="id">{{ $item->id }}</td>
-                                            <td data-exclude="true" hidden class="project_id">{{ $item->project->id }}</td>
-                                            <td class="projectname">{{ $item->project->projectname }}</td>   
+                                            <td data-exclude="true" hidden class="project_id">{{ $item->projects->id }}</td>
+                                            <td class="projectname">{{ $item->projects->projectname }}</td>   
                                             @php
                                                 $hour    = 0;
                                                 $minute  = 0;
@@ -145,7 +145,7 @@
                                             <td class="text-center" data-exclude="true">
                                                 <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
                                                     <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
-                                                <a href="{{ url('admin/task/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
+                                                <a href="{{ url('admin/video/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
                                                     <i class="fas fa-trash-alt" style="color: #fb4365"></i></a>
                                             </td>   
                                         </tr>

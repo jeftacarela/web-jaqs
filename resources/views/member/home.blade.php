@@ -88,22 +88,20 @@
                         <div class="card-body">
                             <div class="row align-items-center p-1">
                                 <div class="col-lg-10">
-                                    <h5 class="font-14 mb-4">My Remaining Task(s)</h5>
-                                    <h6 class="text-danger pt-2 header-title mb-3" style="font-size: 16px">{{ $jumlahTask }}</h4>
+                                    <h5 class="font-14 mb-4">My Remaining Quiz</h5>
+                                    <h6 class="text-danger pt-2 header-title mb-3" style="font-size: 16px">{{ $jumlahProject->count()-$jumlahQuiz->count() }}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xl-4">
+                {{-- <div class="col-sm-6 col-xl-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="row align-items-center p-1">
                                 <div class="col-lg-10">
                                     <h5 class="header-title">Weekly Work Time</h5>
                                     <b class="text-muted font-8">{{ $weekStartDate }} - {{ $weekEndDate }}</b>
-                                    {{-- <h5 class="text-primary pt-1 mb-0">{{ $taskhour }} <b class="text-muted font-8">minutes</b> </h5> --}}
-                                    {{-- <h5 class="text-muted">{{ $weekTaskMinutes }}</h5> --}}
                                     
                                     @if ($hour > 1)
                                         @if ($minute > 1)
@@ -123,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         <!--

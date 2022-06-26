@@ -68,13 +68,14 @@ class MemberController extends Controller
 
             $jumlahTask     = DB::table('tasks')->where('status', 'In Progress')->where('user_id','$id->id')->count();
             $jumlahProject  = DB::table('projects')->where('status','!=','Not Active')->get();
+            $jumlahQuiz     = DB::table('results')->where('user_id', auth()->user()->id)->get();
                 
             return view('member.home', compact(
                 'id', 'date','project', 'videos', 'results',
                 'user', 'task', 'weekTaskMinutes',
                 'weekStartDate', 'weekEndDate', 
                 'minute', 'hour', 'showVideos',
-                'jumlahTask', 'jumlahProject'
+                'jumlahTask', 'jumlahProject', 'jumlahQuiz'
             ));
         } else {
             Toastr::error('Not for Client','MEMBER PAGE');
