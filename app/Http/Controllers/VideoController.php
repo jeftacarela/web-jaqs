@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\Video;
@@ -19,12 +20,14 @@ class VideoController extends Controller
             $request->validate([
                 'project_id'    => 'required|numeric',
                 'description'   => 'required',
+                'title'         => 'required|string|max:255',
                 'video'         => 'required|string|max:255',
                 'duration'      => 'required|date_format:H:i',
             ]);
 
             $video = new Video;
             $video->project_id  = $request->project_id;
+            $video->title        = $request->title;
             $video->description = $request->description;
             $video->video       = $request->video;
             $video->duration    = $request->duration;
@@ -62,12 +65,14 @@ class VideoController extends Controller
             
             $id         = $request->id;
             $video      = $request->video;
+            $title      = $request->title;
             $description= $request->description;
             $duration   = $request->duration;
             $project_id = $request->project_id;
 
             $update = [
                 'id'        => $id,
+                'title'     => $title,
                 'video'     => $video,
                 'description'=> $description,
                 'duration'  => $duration,
@@ -77,8 +82,8 @@ class VideoController extends Controller
             Video::where('id', $request->id)->update($update);
 
             // dd($update);
+            LogActivity::addToLog('update video');
             Toastr::success('Video Updated','Success');
-            // return redirect()->route('admin/task/show');   
             return redirect()->back();
         } else {
         Toastr::error('ADMIN ONLY');

@@ -267,6 +267,7 @@
      {
          var _this = $(this).parents('tr');
          $('#id').val(_this.find('.id').text());
+         $('#e_title').val(_this.find('.title').text());
          $('#e_video').val(_this.find('.video').text());
          $('#e_duration').val(_this.find('.duration').text());
          $('#e_description').val(_this.find('.description').text());

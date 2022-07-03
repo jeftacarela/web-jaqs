@@ -89,7 +89,6 @@ class LoginController extends Controller
 
     public function logout()
     {
-        // LogActivity::addToLog('logout success');
         Auth::logout();
         Toastr::success('Logout Successful','Success');
         return redirect('login');

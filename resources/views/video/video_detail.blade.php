@@ -109,6 +109,7 @@
                                             <th data-exclude="true" hidden>ID</th>
                                             <th data-exclude="true" hidden>Topic ID</th>
                                             <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Project">Topic</th>
+                                            <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Project">Title</th>
                                             <th hidden>Duration</th>
                                             <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Time (hour:minute)">Duration</th>
                                             <th hidden>Video</th>
@@ -124,7 +125,8 @@
                                             <td class="no">{{ ++$key }}</td>
                                             <td data-exclude="true" hidden class="id">{{ $item->id }}</td>
                                             <td data-exclude="true" hidden class="project_id">{{ $item->projects->id }}</td>
-                                            <td class="projectname">{{ $item->projects->projectname }}</td>   
+                                            <td class="projectname">{{ $item->projects->projectname }}</td>
+                                            <td class="title">{{ $item->title }}</td>   
                                             @php
                                                 $hour    = 0;
                                                 $minute  = 0;
@@ -157,11 +159,11 @@
                                         </button>
                                     </div>
                                 </table>
-                                <div class="col-12 d-flex justify-right mt-3 mb-2">
+                                {{-- <div class="col-12 d-flex justify-right mt-3 mb-2">
                                     <button id="btn-export" onclick="exportReportToExcel('Team')" class="btn btn-success waves-effect">
                                         <i class="mdi mdi-file-excel" style="font-size: 20px"></i> Export Task</b>
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -205,10 +207,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row"> 
+                            <div class="col-sm-11"> 
+                                <label for="description">Video Title</label>
+                                <input class="form-control" name="title" type="text" id="title"  cols="30" rows="4">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="form-group"></div>
-                                <label>Video</label>
+                                <label>Video Link</label>
                                 <div class="input-group mb-2 mr-sm-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?v=</div>
@@ -267,10 +280,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row"> 
+                            <div class="col-sm-11"> 
+                                <label for="description">Video Title</label>
+                                <input class="form-control" name="title" value="" type="text" id="e_title"  cols="30" rows="4">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="form-group"></div>
-                                <label>Video</label>
+                                <label>Video Link</label>
                                 <div class="input-group mb-2 mr-sm-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?v=</div>

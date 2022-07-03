@@ -235,8 +235,10 @@
                                 <div class="social-box text-center">
                                     {{-- <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3> --}}
                                     <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
-                                    <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5>
-                                    <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p>
+                                    <h5 class="mr-2 text-left">{{ $item->title }}</h5>
+                                    <p class="text-muted text-justify">{{ Str::limit($item->projectname, 150, ' ...')}}</p>
+                                    {{-- <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5> --}}
+                                    {{-- <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p> --}}
 
                                     {{-- <div class="mt-2 pt-1 mb-2">
                                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Follwing you</button>
@@ -254,16 +256,21 @@
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Your Recent Task Activity</h4>
                                 <ol class="activity-feed mb-0 pl-3">
-                                    @foreach ($task as $item)
-                                    @if ($item->user_id == $id->id)
+                                    @foreach ($adminLog as $item)
+                                    {{-- @if ($item->user_id == $id->id) --}}
                                     <li class="feed-item">
                                         <div class="feed-item-list">
                                             {{-- <a href="{{ url('admin/task/detail/'.$item->id) }}" class="text-muted mb-1">{{ $item->created_at }}</a> --}}
-                                            <a href="{{ url('admin/task/me/') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
-                                            <p class="font-15 mt-0 mb-0">{{ $item->name }} <b class="text-warning">{{ $item->project->projectname }}</b></p>
+                                            <a href="{{ url('admin/task/show/') }}" class="text-muted mb-1">{{ $item->created_at }}</a>
+                                            <p class="font-15 mt-0 mb-0">{{ $item->subject }}
+                                                <b class="text-warning"> {{ $item->ip }}</b>
+                                                @foreach ($user as $orang)
+                                                    <b class="text-primary"> {{ ($item->user_id == $orang->id ? $orang->name : '') }}</b>
+                                                @endforeach
+                                            </p>
                                         </div>
                                     </li>
-                                    @endif
+                                    {{-- @endif --}}
                                     @endforeach
                                 </ol>
 
@@ -297,7 +304,7 @@
                             <div class="card-body">
                                 <h4 class="mt-0 header-title mb-4">Recent User Activity</h4>
                                 <ol class="activity-feed mb-0 pl-3">
-                                    @foreach ($log as $item)
+                                    @foreach ($memberLog as $item)
                                     {{-- @if ($item->user_id == $id->id) --}}
                                     <li class="feed-item">
                                         <div class="feed-item-list">
@@ -643,10 +650,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row"> 
+                            <div class="col-sm-11"> 
+                                <label for="description">Video Title</label>
+                                <input class="form-control" name="title" type="text" id="title"  cols="30" rows="4">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="form-group"></div>
-                                <label>Video</label>
+                                <label>Video Link</label>
                                 <div class="input-group mb-2 mr-sm-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?</div>

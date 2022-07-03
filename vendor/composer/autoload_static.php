@@ -567,6 +567,7 @@ class ComposerStaticInit74cddca670c90151447a27a5d0f4d7b2
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\LogActivity' => __DIR__ . '/../..' . '/app/Helpers/LogActivity.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -580,6 +581,7 @@ class ComposerStaticInit74cddca670c90151447a27a5d0f4d7b2
         'App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/MemberController.php',
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
         'App\\Http\\Controllers\\QuizController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuizController.php',
+        'App\\Http\\Controllers\\ResultController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResultController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Controllers\\UserManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserManagementController.php',
         'App\\Http\\Controllers\\VideoController' => __DIR__ . '/../..' . '/app/Http/Controllers/VideoController.php',
