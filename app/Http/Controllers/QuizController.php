@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Models\Option;
 use App\Models\Project;
 use App\Models\Question;
@@ -45,6 +46,8 @@ class QuizController extends Controller
             $question->result       = $request->result;
 
             $question->save();
+
+            LogActivity::addToLog('add quiz from topic'.$request->project_id);
 
             Toastr::success('Data Added', 'Success');
             // return redirect()->route('admin/task/show');
@@ -131,6 +134,8 @@ class QuizController extends Controller
 
             Question::where('id', $request->id)->update($updateQuestion);
 
+            LogActivity::addToLog('update quiz '.$id);
+
             // dd($update);
             Toastr::success('Quiz Updated','Success');
             // return redirect()->route('admin/task/show');   
@@ -145,11 +150,13 @@ class QuizController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin')){
+            LogActivity::addToLog('delete quiz '.$id);
             $delete = Question::find($id);
             // $delete = DB::table('questions')
             //             ->leftJoin('options', 'questions.id', '=', 'options.question_id')
             //             ->get();
             $delete->delete();
+
 
             Toastr::success('Quiz deleted','Success');
             // return redirect()->route('admin/task/show');

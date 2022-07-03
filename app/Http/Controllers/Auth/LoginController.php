@@ -81,7 +81,7 @@ class LoginController extends Controller
             return redirect()->intended('home');
         }
         else{
-            LogActivity::addToLog('attempt login, login '.$email.' failed');
+            LogActivity::addToLog('attempt login '.$email.' failed');
             Toastr::error('FAIL, WRONG USERNAME OR PASSWORD','Error');
             return redirect('login');
         }

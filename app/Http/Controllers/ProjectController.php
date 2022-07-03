@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
@@ -58,6 +59,8 @@ class ProjectController extends Controller
                 // $project->user()->attach($request->client);
 
             // dd($project);
+
+            LogActivity::addToLog('add topic '.$request->projectname);
 
             Toastr::success('Data Inserted','Success');
             // return redirect()->route('admin/project/show');
@@ -147,6 +150,8 @@ class ProjectController extends Controller
             // dd($update);
             $data->update($update);
 
+            LogActivity::addToLog('update topic '.$projectname);
+
             Toastr::success('Data Updated','Success');
             return redirect()->back();
         } else {
@@ -158,6 +163,8 @@ class ProjectController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin')){
+            LogActivity::addToLog('delete topic '.Project::find($id)->pluck('projectname'));
+            
             $delete = Project::find($id);
             $delete->delete();
 
