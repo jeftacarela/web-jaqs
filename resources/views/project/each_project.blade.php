@@ -56,10 +56,11 @@
                                             {{-- <th style="max-width: 12%" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of Project">Topic</th> --}}
                                             <th hidden>Duration</th>
                                             <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Time (hour:minute)">Duration</th>
+                                            <th style="max-width: 12%" title="Title">Title</th>
                                             <th hidden>Video</th>
                                             <th style="max-width: 12%" title="link">Youtube Link</th>
                                             <th style="max-width: 12%" title="Description">Description</th>
-                                            <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th>
+                                            {{-- <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th> --}}
                                         </tr>    
                                     </thead>
 
@@ -81,18 +82,20 @@
                                             @endphp
                                             <td hidden class="duration">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
                                             <td data-exclude="true" class="text-center">{{ $hour }}h:{{ $minute }}m</td>
+                                            <td data-exclude="true" class="title text-center">{{ $item->title }}</td>
                                             <td hidden data-exclude="true" class="video text-center">{{ $item->video }}</td>
                                             <td data-exclude="true" class="text-center">
-                                                <iframe width="150" height="75" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                                <iframe width="100" height="50" src="https://www.youtube.com/embed/{{ $item->video }}">
                                                 </iframe>
                                             </td>
-                                            <td data-exclude="true" class="description text-center">{{ $item->description }}</td>
-                                            <td class="text-center" data-exclude="true">
+                                            <td hidden data-exclude="true" class="description text-center">{{ $item->description }}</td>
+                                            <td data-exclude="true" class="text-center">{{ Str::limit($item->description, 70, ' ...')}}</td>
+                                            {{-- <td class="text-center" data-exclude="true">
                                                 <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
                                                     <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
                                                 <a href="{{ url('admin/task/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
                                                     <i class="fas fa-trash-alt" style="color: #fb4365"></i></a>
-                                            </td>   
+                                            </td>    --}}
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -123,7 +126,7 @@
                                             <th style="max-width: 12%" title="Question">Question</th>
                                             <th style="max-width: 12%" title="Option" class="text-left">Option</th>
                                             <th style="max-width: 12%" title="Key">Key</th>
-                                            <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th>
+                                            {{-- <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th> --}}
                                         </tr>    
                                     </thead>
 
@@ -141,14 +144,14 @@
                                                 @endforeach
                                             </td>
                                             <td class="result text-center">{{ $item->result }}</td>
-                                            <td class="text-center" data-exclude="true">
+                                            {{-- <td class="text-center" data-exclude="true"> --}}
                                                 {{-- <a href="#" class="videoUpdate mr-2" data-toggle="modal" data-id="'$item->id'" data-target="#edit_video">
                                                     <i class="fas fa-edit" style="color: #0ee7e3"></i></a> --}}
-                                                <a href="{{ url('admin/quiz/detail/'.$item->id) }}" style="color: #fb4365" class="mr-2">
-                                                    <i class="fas fa-edit" style="color: #0ee7e3"></i></a>
-                                                <a href="{{ url('admin/quiz/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
-                                                    <i class="fas fa-trash-alt" style="color: #fb4365"></i></a>
-                                            </td>   
+                                                {{-- <a href="{{ url('admin/quiz/detail/'.$item->id) }}" style="color: #fb4365" class="mr-2">
+                                                    <i class="fas fa-edit" style="color: #0ee7e3"></i></a> --}}
+                                                {{-- <a href="{{ url('admin/quiz/delete/'.$item->id) }}" onclick="return confirm('Are you sure to want to delete it?')" style="color: #fb4365">
+                                                    <i class="fas fa-trash-alt" style="color: #fb4365"></i></a> --}}
+                                            {{-- </td>    --}}
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -206,10 +209,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row"> 
+                            <div class="col-sm-11"> 
+                                <label for="description">Video Title</label>
+                                <input class="form-control" name="title" type="text" id="title"  cols="30" rows="4">
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="form-group"></div>
-                                <label>Video</label>
+                                <label>Video Link</label>
                                 <div class="input-group mb-2 mr-sm-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?</div>

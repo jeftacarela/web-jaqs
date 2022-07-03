@@ -74,8 +74,15 @@ class HomeController extends Controller
              
             // dd($h, $m, $s);
 
-            $log = UserLogTable::latest()->where('subject', '!=', 'logout success')->take(10)->get();
-            // dd($log);
+            $memberLog = UserLogTable::where('subject', '!=', 'logout success')
+                ->leftJoin('users', 'users.id', 'user_log_tables.user_id')
+                ->where('users.name', '!=', 'Admin')
+                ->take(10)->get();
+            $adminLog = UserLogTable::where('subject', '!=', 'logout success')
+                ->leftJoin('users', 'users.id', 'user_log_tables.user_id')
+                ->where('users.name', '=', 'Admin')
+                ->take(10)->get();
+            // dd($adminLog);
 
             // questions
             $questions = DB::table('questions')->leftJoin('projects', 'projects.id', '=', 'project_id')->get();
@@ -87,11 +94,12 @@ class HomeController extends Controller
 
             $projectuser = DB::table('project_user')->get();
 
-            LogActivity::addToLog('show home');
+            // LogActivity::addToLog('show home');
             return view('home', compact(
                 'user', 'task','id', 'videos', 'showVideos', 'questions',
                 'project', 'projectuser', 'jumlahUser', 'jumlahQuestion',
-                'jumlahProject', 'jumlahVideo', 'jumlahMyTask', 'h', 'm', 's', 'log'
+                'jumlahProject', 'jumlahVideo', 'jumlahMyTask', 'h', 'm', 's', 
+                'memberLog', 'adminLog'
             ));
         } else {
             if (Gate::allows('isClient')) {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScoresTable extends Migration
+class AddColumnTitleToVideos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateScoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('scores', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('project_id');
-            $table->double('score', 6, 2);
-            $table->timestamps();
+        Schema::table('videos', function (Blueprint $table) {
+            $table->string('title')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateScoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scores');
+        Schema::table('videos', function (Blueprint $table) {
+            $table->dropColumn(['title']);
+        });
     }
 }
