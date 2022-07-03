@@ -235,7 +235,7 @@
                                 <div class="social-box text-center">
                                     {{-- <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3> --}}
                                     <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
-                                    <h5 class="mr-2 text-left">{{ $item->title }}</h5>
+                                    <h5 class="text-capitalize mr-2 text-left">{{ Str::limit($item->title, 50, ' ...') }}</h5>
                                     <p class="text-muted text-justify">{{ Str::limit($item->projectname, 150, ' ...')}}</p>
                                     {{-- <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5> --}}
                                     {{-- <p class="text-muted text-justify">{{ Str::limit($item->description, 150, ' ...')}}</p> --}}

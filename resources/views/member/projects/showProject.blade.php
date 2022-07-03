@@ -80,7 +80,7 @@
                                         @foreach ($video as $key => $vid)
                                             @if ($vid->project_id == $item->id)
                                                 <iframe width="210" height="120" src="https://www.youtube.com/embed/{{ $vid->video }}"></iframe>
-                                                <h6 class="text-secondary ml-2 mb-0" style="font-size: 12px">{{ Str::limit($vid->description, 75, ' ...')}}</h6><br>
+                                                <p class="text-capitalize font-weight-bold text-left mr-2 mb-0" style="font-size: 14px">{{ Str::limit($vid->title, 75, ' ...')}}</p><br>
                                             @endif
                                         @endforeach
                                     </div>

@@ -189,7 +189,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-12">
                                                 <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
-                                                <h6 class="text-dark pt-2 mb-3" style="font-size: 16px">{{ Str::limit($video->description, 20, ' ...')}}</h4>
+                                                <h6 class="text-capitalize font-weight-bold text-left pt-2 mb-3" style="font-size: 16px">{{ Str::limit($video->title, 50, ' ...')}}</h4>
                                             </div>
                                         </div>
                                     </div>

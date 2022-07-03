@@ -44,7 +44,8 @@
                                 </p>
                                 @foreach ($videos as $video)
                                     <iframe width="720" height="540" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
-                                    <h6>{{ $video->description }}</h6>
+                                    <h6 class="text-capitalize font-weight-bold text-center">{{ $video->title }}</h6>
+                                    <h6 class="text-center">{{ $video->description }}</h6>
                                 @endforeach
                                 
                                 <button type="submit" class="btn btn-sm btn-success waves-effect waves-light mt-5 mr-2">
