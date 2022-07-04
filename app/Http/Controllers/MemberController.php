@@ -245,6 +245,7 @@ class MemberController extends Controller
             $project = Project::where('id', $id)->first();
             $questions = Question::where('project_id', $quiz_id)->get();
             // dd($questions);
+            LogActivity::addToLog($user->name.'view quiz '.$id);
             return view('member.quiz.quiz_page', compact('user', 'quiz_id', 'questions', 'project'));
         } else {
             Toastr::error('Not for Client','MEMBER PAGE');
@@ -293,6 +294,8 @@ class MemberController extends Controller
             $result->score      = $score;
 
             $result->save();
+
+            LogActivity::addToLog('finish quiz '.$request->quiz_id);
 
             Toastr::success('Quiz Submitted', 'Success');
             return redirect()->route('member');
@@ -359,7 +362,7 @@ class MemberController extends Controller
 
             User::where('id',$request->id)->update($update);
 
-            LogActivity::addToLog('update profile');
+            LogActivity::addToLog('update profile '.$name);
 
             Toastr::success('Profile updated','Success');
             return redirect()->route('member/profile');

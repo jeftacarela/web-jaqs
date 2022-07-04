@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
@@ -79,6 +80,9 @@ class UserManagementController extends Controller
             $user->role_name    = $request->role_name;
             $user->password     = Hash::make($request->password);
             $user->save();
+
+            LogActivity::addToLog('add user '.$user->name);
+            
             Toastr::success('Created New Account','Success');
             return redirect()->route('user/management');
         } else {
@@ -131,6 +135,9 @@ class UserManagementController extends Controller
                 'role_name'    => $role_name,
             ];
             User::where('id',$request->id)->update($update);
+            
+            LogActivity::addToLog('update user '.$request->name);
+            
             Toastr::success('User Updated','Success');
             return redirect()->route('user/management');
         } else {
@@ -146,6 +153,9 @@ class UserManagementController extends Controller
             $delete = User::find($id);
             //    unlink('images/'.$delete->avatar);
             $delete->delete();
+
+            LogActivity::addToLog('delete user '.$id);
+
             Toastr::success('User Deleted','Success');
             return redirect()->route('user/management');
        } else {
@@ -202,6 +212,9 @@ class UserManagementController extends Controller
             ]);
 
                 User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
+                LogActivity::addToLog('update user password');
+
                 Toastr::success('Password Changed :)','Success');
                 return redirect()->route('admin/profile');
         } else {

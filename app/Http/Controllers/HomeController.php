@@ -77,10 +77,12 @@ class HomeController extends Controller
             $memberLog = UserLogTable::where('subject', '!=', 'logout success')
                 ->leftJoin('users', 'users.id', 'user_log_tables.user_id')
                 ->where('users.name', '!=', 'Admin')
+                ->orderBy('user_log_tables.created_at', 'desc')
                 ->take(10)->get();
             $adminLog = UserLogTable::where('subject', '!=', 'logout success')
                 ->leftJoin('users', 'users.id', 'user_log_tables.user_id')
                 ->where('users.name', '=', 'Admin')
+                ->orderBy('user_log_tables.created_at', 'desc')
                 ->take(10)->get();
             // dd($adminLog);
 

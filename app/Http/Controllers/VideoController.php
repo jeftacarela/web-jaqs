@@ -34,6 +34,8 @@ class VideoController extends Controller
 
             $video->save();
 
+            LogActivity::addToLog('add video '.$request->title);
+
             Toastr::success('Video Added', 'Success');
             // return redirect()->route('admin/task/show');
             return redirect()->back();
@@ -80,9 +82,10 @@ class VideoController extends Controller
             ];
 
             Video::where('id', $request->id)->update($update);
-
             // dd($update);
-            LogActivity::addToLog('update video');
+
+            LogActivity::addToLog('update video '.$title);
+
             Toastr::success('Video Updated','Success');
             return redirect()->back();
         } else {
@@ -95,6 +98,8 @@ class VideoController extends Controller
     public function delete($id)
     {
         if(Gate::allows('isAdmin')){
+            LogActivity::addToLog('delete video '.Video::where('id', $id)->pluck('title'));
+
             $delete = Video::find($id);
             $delete->delete();
 
