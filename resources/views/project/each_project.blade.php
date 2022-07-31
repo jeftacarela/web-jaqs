@@ -228,7 +228,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?</div>
                                     </div>
-                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
+                                    <input class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
                                     oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
                                 </div>
                             </div>

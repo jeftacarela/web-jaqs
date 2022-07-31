@@ -21,7 +21,7 @@ class VideoController extends Controller
                 'project_id'    => 'required|numeric',
                 'description'   => 'required',
                 'title'         => 'required|string|max:255',
-                'video'         => 'required|string|max:255',
+                // 'video'         => 'required|string|max:255',
                 'duration'      => 'required|date_format:H:i',
             ]);
 
