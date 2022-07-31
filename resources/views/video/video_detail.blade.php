@@ -113,7 +113,7 @@
                                             <th hidden>Duration</th>
                                             <th data-exclude="true" style="max-width: 8%" data-bs-toggle="tooltip" data-bs-placement="top" title="Work Time (hour:minute)">Duration</th>
                                             <th hidden>Video</th>
-                                            <th style="max-width: 12%" title="link">Youtube Link</th>
+                                            <th style="max-width: 12%" title="link">Video</th>
                                             <th style="max-width: 12%" title="Description">Description</th>
                                             <th style="max-width: 10%" title="Action for each video" class="text-center" data-exclude="true">Modify</th>
                                         </tr>    
@@ -139,9 +139,18 @@
                                             <td hidden class="duration">{{ sprintf("%02d",$hour) }}:{{ sprintf("%02d",$minute) }}</td>
                                             <td data-exclude="true" class="text-center">{{ $hour }}h:{{ $minute }}m</td>
                                             <td hidden data-exclude="true" class="video text-center">{{ $item->video }}</td>
-                                            <td data-exclude="true" class="text-center">
-                                                <iframe width="200" height="100" src="https://www.youtube.com/embed/{{ $item->video }}">
-                                                </iframe>
+                                            <td hidden data-exclude="true" class="video_file text-center">{{ $item->video_file }}</td>
+                                            <td class="video text-left">
+                                                @if ($item->video != null)
+                                                    <iframe width="200" height="100" src="https://www.youtube.com/embed/{{ $item->video }}">
+                                                    </iframe>
+                                                @endif
+                                                @if ($item->video_file != null)
+                                                    <video width="200" height="100" controls autoplay>
+                                                        {{-- <source src="{{ public_path('video/'.$item->video_file) }}" type="video/mp4"> Your browser doesn't support --}}
+                                                            <source src="{{url('http://127.0.0.1:8000/web-jaqs/public/video/'.$item->video_file)}}">
+                                                    </video>
+                                                @endif
                                             </td>
                                             <td data-exclude="true" class="description text-justify">{{ $item->description }}</td>
                                             <td class="text-center" data-exclude="true">
@@ -226,8 +235,18 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?v=</div>
                                     </div>
-                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}"
+                                    <input class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}"
                                     oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video File</label>
+                                <div class="input-group mb-2 mr-sm-2" id="upload">
+                                    <input class="form-control" type="file" id="formFile" name="video_file" value="{{ old('video_file') }}">
                                 </div>
                             </div>
                         </div>
@@ -299,8 +318,18 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?v=</div>
                                     </div>
-                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="e_video" name="video" value="{{ old('video') }}"
+                                    <input class="form-control @error('video_url') is-invalid @enderror" type="text" id="e_video" name="video" value="{{ old('video') }}"
                                     oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video File</label>
+                                <div class="input-group mb-2 mr-sm-2" id="upload">
+                                    <input class="form-control" type="file" name="video_file" value="">
+                                    <span><input readonly class="form-control" type="text" id="e_video_file" name="video_file" value="" style="background-color: rgb(215, 214, 214)"></span>
                                 </div>
                             </div>
                         </div>
@@ -341,5 +370,11 @@
             });
         });
     </script>
+    {{-- <script src="//vjs.zencdn.net/4.12/video.js"></script> --}}
 
+{{-- <script>
+    videojs(document.getElementById('tes'), {}, function() {
+        // This is functionally the same as the previous example.
+    });
+</script> --}}
 @endsection

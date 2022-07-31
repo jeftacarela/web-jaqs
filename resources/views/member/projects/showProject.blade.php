@@ -79,7 +79,16 @@
                                         {{-- <a href="{{ url('member/project/view/'.$item->id) }}" class="text-primary">{{ $item->projectname }}</a> --}}
                                         @foreach ($video as $key => $vid)
                                             @if ($vid->project_id == $item->id)
-                                                <iframe width="210" height="120" src="https://www.youtube.com/embed/{{ $vid->video }}"></iframe>
+                                                @if ($vid->video != null)
+                                                    <iframe width="210" height="120" src="https://www.youtube.com/embed/{{ $vid->video }}"></iframe>
+                                                @endif
+
+                                                @if ($vid->video_file != null)
+                                                    <video width="210" height="120" controls autoplay>
+                                                        <source src="{{url('http://127.0.0.1:8000/web-jaqs/public/video/'.$vid->video_file)}}">
+                                                    </video>
+                                                @endif
+                                                
                                                 <p class="text-capitalize font-weight-bold text-left mr-2 mb-0" style="font-size: 14px">{{ Str::limit($vid->title, 75, ' ...')}}</p><br>
                                             @endif
                                         @endforeach

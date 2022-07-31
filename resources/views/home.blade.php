@@ -234,7 +234,14 @@
                             <div class="card-body">
                                 <div class="social-box text-center">
                                     {{-- <h3><i class="mdi mdi-youtube text-danger h1 mr-2"></i>{{$item->projectname}}</h3> --}}
-                                    <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
+                                    @if ($item->video != null)
+                                        <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe>
+                                    @elseif ($item->video_file != null)
+                                        <video width="220" height="120" controls autoplay>
+                                            <source src="{{url('http://127.0.0.1:8000/web-jaqs/public/video/'.$item->video_file)}}">
+                                        </video>
+                                    @endif
+                                    {{-- <iframe width="220" height="150" src="https://www.youtube.com/embed/{{ $item->video }}"></iframe> --}}
                                     <h5 class="text-capitalize mr-2 text-left">{{ Str::limit($item->title, 50, ' ...') }}</h5>
                                     <p class="text-muted text-justify">{{ Str::limit($item->projectname, 150, ' ...')}}</p>
                                     {{-- <h5 class="font-19 mt-3 text-left"><span class="text-secondary"></span>  {{$item->projectname}}</h5> --}}
@@ -669,8 +676,18 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">https://www.youtube.com/watch?</div>
                                     </div>
-                                    <input required class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
+                                    <input class="form-control @error('video_url') is-invalid @enderror" type="text" id="video" name="video" value="{{ old('video') }}" placeholder="Only Token, e.g. https://www.youtube.com/embed/[watch?v=eh8manMzXlk]"
                                     oninvalid="this.setCustomValidity('Please Enter valid Webiste URL')" oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video File</label>
+                                <div class="input-group mb-2 mr-sm-2" id="upload">
+                                    <input class="form-control" type="file" id="formFile" name="video_file" value="{{ old('video_file') }}">
                                 </div>
                             </div>
                         </div>

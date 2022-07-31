@@ -271,6 +271,7 @@
          $('#e_video').val(_this.find('.video').text());
          $('#e_duration').val(_this.find('.duration').text());
          $('#e_description').val(_this.find('.description').text());
+         $('#e_video_file').val(_this.find('.video_file').text());
          // $('#e_image').val(_this.find('.image').text());
 
          var project_id = (_this.find(".project_id").text());
