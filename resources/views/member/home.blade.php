@@ -188,7 +188,14 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-lg-12">
-                                                <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                                @if ($video->video != null)
+                                                    <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                                @elseif ($video->video_file != null)
+                                                    <video width="220" height="120" controls autoplay>
+                                                        <source src="{{url('http://127.0.0.1:8000/web-jaqs/public/video/'.$video->video_file)}}">
+                                                    </video>
+                                                @endif
+                                                {{-- <iframe width="220" height="120" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe> --}}
                                                 <h6 class="text-capitalize font-weight-bold text-left pt-2 mb-3" style="font-size: 16px">{{ Str::limit($video->title, 50, ' ...')}}</h4>
                                             </div>
                                         </div>

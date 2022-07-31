@@ -235,6 +235,16 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-sm-11">
+                                <div class="form-group"></div>
+                                <label>Video File</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input class="form-control" type="file" id="formFile" name="video_file" value="{{ old('video_file') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-sm-12"> 
                                 <div class="form-group">
                                     <label for="description">Description</label>

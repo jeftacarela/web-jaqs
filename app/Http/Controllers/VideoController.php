@@ -17,19 +17,30 @@ class VideoController extends Controller
     public function saveVideo(Request $request)
     {
         if (Gate::allows('isAdmin')) {
+            // dd($request->video_file);
             $request->validate([
                 'project_id'    => 'required|numeric',
-                'description'   => 'required',
+                'description'   => 'nullable|string',
                 'title'         => 'required|string|max:255',
-                // 'video'         => 'required|string|max:255',
+                'video'         => 'nullable|string|max:255',
                 'duration'      => 'required|date_format:H:i',
             ]);
+
+
+            if($file = $request->hasFile('video_file')) {
+                $file = $request->file('video_file') ;
+                $fileName = $file->getClientOriginalName() ;
+                $destinationPath = public_path().'/video' ;
+                $file->move($destinationPath,$fileName);
+            } 
 
             $video = new Video;
             $video->project_id  = $request->project_id;
             $video->title        = $request->title;
             $video->description = $request->description;
             $video->video       = $request->video;
+            // $video->video_file  = $request->file('video_file')->getClientOriginalName();
+            $video->video_file  = $fileName;
             $video->duration    = $request->duration;
 
             $video->save();
@@ -72,10 +83,19 @@ class VideoController extends Controller
             $duration   = $request->duration;
             $project_id = $request->project_id;
 
+            $fileName = $request->video_file;
+            if($file = $request->hasFile('video_file')) {
+                $file = $request->file('video_file') ;
+                $fileName = $file->getClientOriginalName() ;
+                $destinationPath = public_path().'/video' ;
+                $file->move($destinationPath,$fileName);
+            }
+
             $update = [
                 'id'        => $id,
                 'title'     => $title,
                 'video'     => $video,
+                'video_file'=> $fileName,
                 'description'=> $description,
                 'duration'  => $duration,
                 'project_id'=> $project_id,

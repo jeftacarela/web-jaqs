@@ -43,7 +43,16 @@
                                 <h4 class="mt-2 ml-3 header-title text-left">Project {{ $project->projectname }}</h4>
                                 </p>
                                 @foreach ($videos as $video)
-                                    <iframe width="720" height="540" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                    @if ($video->video != null)
+                                        <iframe width="720" height="540" src="https://www.youtube.com/embed/{{ $video->video }}"></iframe>
+                                    @endif
+
+                                    @if ($video->video_file != null)
+                                        <video width="720" height="540" controls autoplay>
+                                            <source src="{{url('http://127.0.0.1:8000/web-jaqs/public/video/'.$video->video_file)}}">
+                                        </video>
+                                    @endif
+                                    
                                     <h6 class="text-capitalize font-weight-bold text-center">{{ $video->title }}</h6>
                                     <h6 class="text-center">{{ $video->description }}</h6>
                                 @endforeach
